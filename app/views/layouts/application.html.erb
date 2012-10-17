@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RefactorIt</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div>
+    <% if user_signed_in? %>
+      Logged in as <%= @current_user.email %>
+    <% else %>
+      Not logged in <%= link_to_login %>
+    <% end %>
+  </div>
+
+<%= yield %>
+
+</body>
+</html>
