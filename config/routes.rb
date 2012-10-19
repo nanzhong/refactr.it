@@ -57,7 +57,10 @@ RefactorIt::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 
   root :to => 'root#index'
+
   resources :users
+  resources :problems
+
   match '/auth/github/callback' => 'sessions#create'
   match '/auth/failure' => 'sessions#failure'
   match '/sign_in' => 'sessions#new', :as => :sign_in

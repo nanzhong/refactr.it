@@ -1,0 +1,7 @@
+<h1><%= @problem.title %></h1>
+<div id="<%= @problem.id %>">
+  <p><%= @problem.description %></p>
+  <div id="content-<%= @problem.id %>">
+    <%= javascript_tag nil, :src => @problem.embed_url %>
+  </div>
+</div>
