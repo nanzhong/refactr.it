@@ -3,9 +3,6 @@
 <% @problems.each do |problem| %>
   <div id="<%= problem.id %>">
     <h2><%= problem.title %></h2>
-    <p><%= problem.description %></p>
-    <div id="content-<%= problem.id %>">
-      <%= javascript_tag nil, :src => problem.embed_url %>
-    </div>
+    <p><%= problem.revisions.last.body %></p>
   </div>
 <% end %>

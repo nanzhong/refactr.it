@@ -5,7 +5,7 @@ gem 'mongoid', '~> 3.0.0'
 gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
 gem "twitter-bootstrap-rails"
 gem 'httparty'
-gem 'thin'
+gem 'puma'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -4,7 +4,7 @@ class ProblemsController < ApplicationController
 
   # GET /groups
   def index
-    @problems = Problem.all
+    @problems = Problem::Submission.all
 
     respond_to do |format|
       format.json { render json: @problems }
@@ -22,7 +22,9 @@ class ProblemsController < ApplicationController
 
   # GET /groups/new
   def new
-    @problem = Problem.new
+    @problem = Problem::Submission.new
+    @revision = Problem::Revision.new
+    @problem.revisions << @revision
 
     respond_to do |format|
       format.json { render json: @problem }
@@ -76,7 +78,7 @@ class ProblemsController < ApplicationController
 
   private
   def problem_from_id
-    @problem = Problem.find(params[:id])
+    @problem = Problem::Submission.find(params[:id])
   end
 
 end

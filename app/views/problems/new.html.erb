@@ -1,27 +1,2 @@
 <h1>New Problem</h1>
-<%= form_for @problem do |f| %>
-  <%= f.label 'title', "Title:" %>
-  <%= f.text_field :title, class: 'problem-title span6' %>
-  <%= f.label 'description', "Description:" %>
-  <%= f.text_area 'description', class: 'problem-description span6' %>
-  <div id="files">
-    <%= label_tag 'file-name', "File name:" %>
-    <%= text_field_tag 'problem[files][][name]', nil, class: 'file-name span6' %>
-    <%= label_tag 'file-content', "Content:" %>
-    <%= text_area_tag 'problem[files][][content]', nil, class: 'file-content span6' %>
-    <script>
-      function addFile() {
-        $('#files').append('<%= escape_javascript(label_tag "file-name", "File name:") %>');
-        $('#files').append('<%= escape_javascript(text_field_tag "problem[files][][name]", nil, class: "file-name span6") %>');
-        $('#files').append('<%= escape_javascript(label_tag "file-content", "Content:") %>');
-        $('#files').append('<%= escape_javascript(text_area_tag "problem[files][][content]", nil, class: "file-content span6") %>');
-      }
-    </script>
-  </div>
-  <span id="add-file">Add another file...</span>
-  <script>
-    $('#add-file').click(function () { addFile(); });
-  </script>
-
-  <%= submit_tag "Post" %>
-<% end %>
+<%= render 'form', locals: { problem: @problem } %>

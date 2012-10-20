@@ -59,7 +59,7 @@ RefactorIt::Application.routes.draw do
   root :to => 'root#index'
 
   resources :users
-  resources :problems
+  resources :problems, as: 'problem_submissions'
 
   match '/auth/github/callback' => 'sessions#create'
   match '/auth/failure' => 'sessions#failure'

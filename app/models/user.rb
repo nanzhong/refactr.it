@@ -8,6 +8,8 @@ class User
   field :image, type: String
   field :score, type: Integer, default: 0
 
+  has_many :problems
+
   validates_presence_of :uid, :email, :nickname, :name, :score
   validates_uniqueness_of :uid
 

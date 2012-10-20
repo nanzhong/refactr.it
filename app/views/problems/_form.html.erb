@@ -1,0 +1,8 @@
+<%= form_for @problem do |f| %>
+  <%= f.label :title, "Title:" %>
+  <%= f.text_field :title, class: 'problem-submission-title span7' %>
+  <%= f.fields_for :revisions do |revision_fields| %>
+    <%= render 'revision_fields', locals: { revision_fields: revision_fields } %>
+  <% end %>
+  <%= f.submit "Post" %>
+<% end %>
