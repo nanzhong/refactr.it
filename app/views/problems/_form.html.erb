@@ -16,7 +16,7 @@
         prePopulate: <%= problem.tags.empty? ? 'null' : problem.tags_prepopulate %> });
   </script>
 
-  <%= f.submit "Submit Post", class: 'btn btn-primary btn-large' %>
+  <%= f.submit "Submit Problem", class: 'btn btn-primary btn-large' %>
   <span id="preview-problem-button" class="btn btn-large">Preview</span>
   <script type="text/javascript">
     var converter = new Showdown.converter();

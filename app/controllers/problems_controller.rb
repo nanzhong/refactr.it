@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
 
-  before_filter :problem_from_id, except: [ :index, :new, :tags ]
+  before_filter :problem_from_id, except: [ :index, :create, :new, :tags ]
 
   # GET /problems
   def index
@@ -49,7 +49,10 @@ class ProblemsController < ApplicationController
         format.html { redirect_to @problem, notice: 'Problem was successfully posted' }
       else
         format.json { render json: @problem.errors, status: :unprocessable_entity }
-        format.html { render action: 'new', error: @problem.errors.full_messages }
+        format.html do
+          flash.now[:error] = "Sorry, problem submitting problem...<ul>#{@problem.errors.full_messages.map {|e| "<li>#{e}</li>" }.join}</ul>".html_safe
+          render action: 'new'
+        end
       end
     end
   end
@@ -67,7 +70,10 @@ class ProblemsController < ApplicationController
         format.json { head :no_content }
       else
         format.json { render json: @problem.errors, status: :unprocessable_entity }
-        format.html { render action: 'new', error: @problem.errors.full_messages }
+        format.html do
+          flash.now[:error] = "Sorry, problem submitting problem...<ul>#{@problem.errors.full_messages.map {|e| "<li>#{e}</li>" }.join}</ul>".html_safe
+          render action: 'new', error: @problem.errors.full_messages 
+        end
       end
     end
   end

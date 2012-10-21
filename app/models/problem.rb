@@ -17,7 +17,7 @@ class Problem
   belongs_to :user
   has_many :solutions
 
-  validates_presence_of :title, :body
+  validates_presence_of :title, :body, :tags
 
   def tags_str=(tags_str)
     self.tags = tags_str.split(',')
