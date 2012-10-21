@@ -1,8 +1,29 @@
-<%= form_for @problem do |f| %>
-  <%= f.label :title, "Title:" %>
-  <%= f.text_field :title, class: 'problem-submission-title span7' %>
-  <%= f.fields_for :revisions do |revision_fields| %>
-    <%= render 'revision_fields', locals: { revision_fields: revision_fields } %>
-  <% end %>
-  <%= f.submit "Post" %>
+<%= form_for problem do |f| %>
+  <%= f.text_field :title, class: 'span8', placeholder: "What is your refactoring problem about?" %>
+  <%= f.text_area :body, class: 'problem-body span8' %>
+  <script type="text/javascript" >
+    $("#problem_body").markItUp(mySettings);
+  </script>
+  <div id="problem-preview"></div>
+  <%= f.text_field :tags_str %>
+  <script type="text/javascript">
+    $('#problem_tags_str').tokenInput(
+      '<%= tags_problems_path %>',
+      { hintText: "Start typing in a tag...",
+        theme: "bootstrap",
+        tokenLimit: 5,
+        preventDuplicates: true,
+        prePopulate: <%= problem.tags.empty? ? 'null' : problem.tags_prepopulate %> });
+  </script>
+
+  <%= f.submit "Submit Post", class: 'btn btn-primary btn-large' %>
+  <span id="preview-problem-button" class="btn btn-large">Preview</span>
+  <script type="text/javascript">
+    var converter = new Showdown.converter();
+
+    $('#preview-problem-button').click(function() {
+      $('#problem-preview').replaceWith('<div id="problem-preview" class="bordered-unit">' + converter.makeHtml($('#problem_body').val()) + '</div>');
+      prettyPrint();
+    });
+  </script>
 <% end %>

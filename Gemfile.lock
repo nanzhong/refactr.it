@@ -126,6 +126,7 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
+    redcarpet (2.2.2)
     sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -163,6 +164,7 @@ DEPENDENCIES
   omniauth-github!
   puma
   rails (= 3.2.8)
+  redcarpet
   sass-rails (~> 3.2.3)
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)

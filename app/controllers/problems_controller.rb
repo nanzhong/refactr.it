@@ -1,10 +1,15 @@
 class ProblemsController < ApplicationController
 
-  before_filter :problem_from_id, only: [ :show, :edit, :update, :destroy ]
+  before_filter :problem_from_id, except: [ :index, :new, :tags ]
 
-  # GET /groups
+  # GET /problems
   def index
-    @problems = Problem::Submission.all
+    @problems = case (params[:order] || "").downcase
+      when "rating" then Problem.desc(:rating)
+      when "views"  then Problem.desc(:views)
+      when "date"   then Problem.desc(:created_at)
+      else               Problem.desc(:rating)
+    end
 
     respond_to do |format|
       format.json { render json: @problems }
@@ -12,19 +17,19 @@ class ProblemsController < ApplicationController
     end
   end
 
-  # GET /groups/:id
+  # GET /problems/:id
   def show
+    @problem.inc(:views, 1)
+
     respond_to do |format|
       format.json { render json: @problem }
       format.html
     end
   end
 
-  # GET /groups/new
+  # GET /problems/new
   def new
-    @problem = Problem::Submission.new
-    @revision = Problem::Revision.new
-    @problem.revisions << @revision
+    @problem = Problem.new
 
     respond_to do |format|
       format.json { render json: @problem }
@@ -32,23 +37,11 @@ class ProblemsController < ApplicationController
     end
   end
 
-  # POST /groups
+  # POST /problems
   def create
-    problem = params['problem']
-    files = {}
-    problem['files'].each do |file|
-      files[file['name']] = { content: file['content'] }
-    end
+    @problem = Problem.new(params[:problem])
 
-    data = { description: problem['title'],
-             public: true,
-             files: files }
-
-    puts "*"*100
-    puts data.inspect
-
-    @problem = Problem.create_on_github(data)
-    puts @problem.errors.inspect
+    @problem.user = current_user if user_signed_in?
 
     respond_to do |format|
       if @problem.save
@@ -56,29 +49,59 @@ class ProblemsController < ApplicationController
         format.html { redirect_to @problem, notice: 'Problem was successfully posted' }
       else
         format.json { render json: @problem.errors, status: :unprocessable_entity }
-        format.html { render action: 'new', warn: 'Error posting problem' }
+        format.html { render action: 'new', error: @problem.errors.full_messages }
       end
     end
   end
 
-  # GET /groups/:id/edit
+  # GET /problems/:id/edit
   def edit
 
   end
 
-  # PUT /groups/:id
+  # PUT /problems/:id
   def update
-
+    respond_to do |format|
+      if @problem.update_attributes(params[:problem])
+        format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.json { render json: @problem.errors, status: :unprocessable_entity }
+        format.html { render action: 'new', error: @problem.errors.full_messages }
+      end
+    end
   end
 
-  # DELETE /groups/:id
+  # DELETE /problems/:id
   def destroy
 
   end
 
+  # GET /problems/tags
+  def tags
+    query_tag = params[:q].strip
+    tags = Problem::TAGS.select {|tag| tag =~ /#{query_tag}/}
+    tags << query_tag unless tags.include? query_tag
+    render json: tags.map {|tag| {id: tag, name: tag} }
+  end
+
+  # PUT /problems/:id/up_vote
+  def up_vote
+    @problem.inc(:up_vote, 1)
+    @problem.inc(:rating, 1)
+    render 'vote'
+  end
+
+  # PUT /problems/:id/down_vote
+  def down_vote
+    @problem.inc(:down_vote, 1)
+    @problem.inc(:rating, -1)
+    render 'vote'
+  end
+
   private
   def problem_from_id
-    @problem = Problem::Submission.find(params[:id])
+    @problem = Problem.find(params[:id])
   end
 
 end

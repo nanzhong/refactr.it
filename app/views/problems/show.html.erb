@@ -1,4 +1,10 @@
 <h1><%= @problem.title %></h1>
+<% if @problem.user == current_user %>
+  <%= link_to 'Edit', edit_problem_path %>
+<% end %>
 <div id="<%= @problem.id %>">
-  <p><%= @problem.revisions.last.body %></p>
+  <p><%= @problem.body_html %></p>
 </div>
+<script type="text/javascript">
+  prettyPrint();
+</script>

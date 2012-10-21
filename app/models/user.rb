@@ -8,18 +8,18 @@ class User
   field :image, type: String
   field :score, type: Integer, default: 0
 
-  has_many :problems
+  has_many :problems, class_name: 'Problem::Submission', inverse_of: :user
+  has_many :solutions, class_name: 'Solution::Submission', inverse_of: :user
 
   validates_presence_of :uid, :email, :nickname, :name, :score
   validates_uniqueness_of :uid
 
   def self.create_from_github(auth)
-    user = User.new
-    user.uid = auth['uid']
-    user.email = auth['info']['email']
-    user.nickname = auth['info']['nickname']
-    user.name = auth['info']['name']
-    user.image = auth['info']['image']
-    user.create
+    User.create!({
+      uid: auth['uid'],
+      email: auth['info']['email'],
+      nickname: auth['info']['nickname'],
+      name: auth['info']['name'],
+      image: auth['info']['image'] })
   end
 end

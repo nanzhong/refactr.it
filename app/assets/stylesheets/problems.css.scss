@@ -2,6 +2,90 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.problem-revision-body {
+.problem-row {
+  border-bottom: 1px solid #CCC;
+}
+
+.problem-content {
+  min-height: 80px;
+}
+
+.stats-box {
+  margin-right: 15px;
+}
+
+.problem-votes {
+  line-height: 4em;
+}
+
+.problem-views {
+  font-color: #ccc;
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 1em;
+}
+
+.problem-rating {
+  padding: 5px;
+  font-size: 1.5em;
+}
+
+.problem-body {
   height: 200px;
+}
+
+.problem-info {
+  font-size: 0.8em;
+}
+
+.new-problem-sidebar {
+  padding: 10px;
+}
+
+#problem-preview {
+  padding: 10px;
+}
+
+ul.tag-list {
+  overflow: hidden;
+  height: auto !important;
+  height: 1%;
+  cursor: text;
+  font-size: 12px;
+  font-family: Verdana, sans-serif;
+  min-height: 1px;
+  z-index: 999;
+  margin: 10px 0px 10px 0px;
+  padding: 0;
+  background-color: #fff;
+  list-style-type: none;
+  clear: left;
+}
+
+ul.tag-list li input {
+  border: 0;
+  width: 100px;
+  padding: 3px 8px;
+  background-color: white;
+  margin: 2px 0;
+  -webkit-appearance: caret;
+}
+
+li.tag-list-token {
+  overflow: hidden;
+  height: auto !important;
+  height: 15px;
+  margin: 3px;
+  padding: 1px 3px;
+  background-color: #eff2f7;
+  color: #000;
+  cursor: default;
+  border: 1px solid #ccd5e4;
+  font-size: 11px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  float: left;
+  white-space: nowrap;
+  display: inline;
 }

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   end
 
   def new
-    session['return_to'] = request.referral
+    session['return_to'] = request.referer
     redirect_to '/auth/github'
   end
 

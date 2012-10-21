@@ -1,4 +1,4 @@
-RefactorIt::Application.routes.draw do
+RefactrIt::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -59,7 +59,16 @@ RefactorIt::Application.routes.draw do
   root :to => 'root#index'
 
   resources :users
-  resources :problems, as: 'problem_submissions'
+  resources :problems do
+    collection do
+      get 'tags', as: :tags, defaults: { format: 'json' }
+    end
+
+    member do
+      put 'up_vote', as: :up_vote, method: :put
+      put 'down_vote', as: :down_vote, method: :put
+    end
+  end
 
   match '/auth/github/callback' => 'sessions#create'
   match '/auth/failure' => 'sessions#failure'
