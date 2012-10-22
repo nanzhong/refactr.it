@@ -8,8 +8,12 @@ class User
   field :image, type: String
   field :score, type: Integer, default: 0
 
-  has_many :problems, class_name: 'Problem::Submission', inverse_of: :user
-  has_many :solutions, class_name: 'Solution::Submission', inverse_of: :user
+  has_many :problems
+  has_many :solutions
+
+  index({ uid: 1 }, { unique: true })
+  index({ email: 1 }, { unique: true })
+  index({ score: 1 })
 
   validates_presence_of :uid, :email, :nickname, :name, :score
   validates_uniqueness_of :uid

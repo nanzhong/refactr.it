@@ -1,10 +1,49 @@
-<h1><%= @problem.title %></h1>
-<% if @problem.user == current_user %>
-  <%= link_to 'Edit', edit_problem_path %>
-<% end %>
-<div id="<%= @problem.id %>">
-  <p><%= @problem.body_html %></p>
+<h1 class="problem-title"><%= @problem.title %></h1>
+<div class="row">
+  <div class="span9">
+    <div id="<%= @problem.id %>" class="problem-content">
+      <p><%= @problem.body_html %></p>
+    </div>
+
+    <div class="problem-actions pull-left">
+      <a href="#">share</a> | 
+      <% if @problem.user == current_user %>
+        <%= link_to 'edit', edit_problem_path, class: 'edit-problem' %> | 
+      <% end %>
+      <a href="#">report</a>
+    </div>
+
+    <div class="problem-author pull-right">
+      Asked by <strong><%= @problem.user ? link_to(@problem.user.nickname, user_path(@problem.user)) : 'Anonymous' %></strong> <span class="muted"><%= time_ago_in_words(@problem.created_at) %> ago</span>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="span3">
+    <div class="problem-info">
+      <h5>Problem Info</h5>
+        <div class="problem-votes">
+          <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(@problem), remote: true, method: :put %>
+          <span class="problem-rating"><%= @problem.rating %></span>
+          <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(@problem), remote: true, method: :put %>
+        </div>
+
+      <ul class="tag-list-new-line">
+        <% @problem.tags.each do |tag| %>
+          <li class="tag-list-token-new-line pull-left"><%= tag %></li>
+          <li class="tag-count"> x <%= Problem.where(:tags.in => [tag]).count %></li>
+          <li class="clearfix"></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="problem-stats">
+      <p><span class="pull-left" style="width:60px">Asked</span> <strong><%= time_ago_in_words @problem.created_at %> ago</strong></p>
+      <p><span class="pull-left" style="width:60px">Viewed</span> <strong><%= @problem.views %> times</strong></p>
+    </div>
+  </div>
 </div>
+
 <script type="text/javascript">
   prettyPrint();
 </script>

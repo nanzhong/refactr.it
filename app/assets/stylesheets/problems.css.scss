@@ -2,50 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.problem-row {
-  border-bottom: 1px solid #CCC;
-}
-
-.problem-content {
-  min-height: 80px;
-}
-
-.stats-box {
-  margin-right: 15px;
-}
-
-.problem-votes {
-  line-height: 4em;
-}
-
-.problem-views {
-  font-color: #ccc;
-  text-align: center;
-  font-size: 0.8em;
-  line-height: 1em;
-}
-
-.problem-rating {
-  padding: 5px;
-  font-size: 1.5em;
-}
-
-.problem-body {
-  height: 200px;
-}
-
-.problem-info {
-  font-size: 0.8em;
-}
-
-.new-problem-sidebar {
-  padding: 10px;
-}
-
-#problem-preview {
-  padding: 10px;
-}
-
+// all
 ul.tag-list {
   overflow: hidden;
   height: auto !important;
@@ -62,13 +19,20 @@ ul.tag-list {
   clear: left;
 }
 
-ul.tag-list li input {
-  border: 0;
-  width: 100px;
-  padding: 3px 8px;
-  background-color: white;
-  margin: 2px 0;
-  -webkit-appearance: caret;
+ul.tag-list-new-line {
+  overflow: hidden;
+  height: auto !important;
+  height: 1%;
+  cursor: text;
+  font-size: 12px;
+  font-family: Verdana, sans-serif;
+  min-height: 1px;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  list-style-type: none;
+  clear: left;
 }
 
 li.tag-list-token {
@@ -88,4 +52,168 @@ li.tag-list-token {
   float: left;
   white-space: nowrap;
   display: inline;
+}
+
+
+li.tag-count {
+  margin: 4px;
+  line-height: 20px;
+}
+
+li.tag-list-token-new-line {
+  overflow: hidden;
+  height: auto !important;
+  height: 15px;
+  margin: 3px 3px 3px 0;
+  padding: 1px 3px;
+  background-color: #eff2f7;
+  color: #000;
+  cursor: default;
+  border: 1px solid #ccd5e4;
+  font-size: 11px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  white-space: nowrap;
+}
+
+// index
+
+ul.problem-sort-links {
+  margin: 10px 0 10px 0;
+  padding-left: 30px;
+  padding-right: 10px;
+}
+
+.problem-sort-links > li > a {
+  line-height: 1.75em;
+  font-weight: bold;
+}
+
+.all-problems-title {
+  font-size: 1.75em;
+  line-height: 1.75em;
+  display: inline;
+}
+
+.grid-problem-row {
+  margin-bottom: 30px;
+}
+
+.grid-problem-frame {
+  position: relative;
+  padding: 5px 29px 5px 29px;
+  background-color: white;
+  border: 1px solid #DDD;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.grid-problem-frame::after {
+  content: attr(data-content);
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: whiteSmoke;
+  border: 1px solid #DDD;
+  color: #9DA0A4;
+  -webkit-border-radius: 4px 0 4px 0;
+  -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+}
+
+.grid-problem-content {
+  min-height: 80px;
+}
+
+.grid-problem-stats-box {
+  margin-right: 15px;
+}
+
+.grid-problem-votes {
+  line-height: 4em;
+}
+
+.grid-problem-views {
+  font-color: #ccc;
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 1em;
+}
+
+.grid-problem-rating {
+  padding: 5px;
+  font-size: 1.5em;
+}
+
+
+.grid-problem-info {
+  font-size: 0.8em;
+}
+
+
+// new/edit
+.problem-body {
+  height: 200px;
+}
+
+.new-problem-sidebar {
+  padding: 10px;
+}
+
+#problem-preview {
+  padding: 10px;
+}
+
+// show
+.problem-title {
+  font-size: 1.75em;
+  line-height: 1.75em;
+  border-bottom: 1px solid #DDD;
+}
+
+.problem-author {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+.problem-actions {
+  padding: 10px 0 10px 0;
+  font-size: 0.9em;
+}
+
+.problem-content {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.problem-info {
+}
+
+.problem-votes {
+  padding: 0;
+  line-height: 4em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 130px;
+  font-size: 2em;
+  text-align: center;
+}
+
+.problem-rating {
+  padding: 5px;
+  font-size: 1.5em;
+}
+
+.problem-stats {
+}
+
+.problem-stats > p {
+  font-size: 0.9em;
+  margin: 0;
 }

@@ -4,12 +4,14 @@ class ProblemsController < ApplicationController
 
   # GET /problems
   def index
-    @problems = case (params[:order] || "").downcase
-      when "rating" then Problem.desc(:rating)
-      when "views"  then Problem.desc(:views)
-      when "date"   then Problem.desc(:created_at)
-      else               Problem.desc(:rating)
+    @sort = case (params[:order] || "").downcase
+      when "rating" then :rating
+      when "views"  then :views
+      when "date"   then :created_at
+      else               :rating
     end
+
+    @problems = Problem.desc(@sort)
 
     respond_to do |format|
       format.json { render json: @problems }

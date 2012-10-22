@@ -1,36 +1,51 @@
-<div class="row">
-  <div class="span9">
-    <h3>Top Problems</h3>
+<div>
+  <h1 class="all-problems-title pull-left">Top Problems</h1>
+  <ul class="problem-sort-links nav nav-tabs pull-right">
+    <li></li>
+    <li <%= @sort == :rating ? ' class="active"'.html_safe : '' %> >
+    <%= link_to 'Top Rated', problems_path(order: "rating"), class: 'problems-sort-link' %>
+    </li>
+    <li<%= @sort == :views ? ' class="active"'.html_safe : '' %>>
+    <%= link_to 'Most Viewed', problems_path(order: "views"), class: 'problems-sort-link' %>
+    </li>
+    <li<%= @sort == :created_at ? ' class="active"'.html_safe : '' %>>
+    <%= link_to 'Newest', problems_path(order: "date"), class: 'problems-sort-link' %>
+    </li>
+  </ul>
+  <div class="clearfix"></div>
+</div>
 
-    <% @problems.each do |problem| %>
-      <div class="problem-row">
-        <div class="stats-box pull-left">
-          <div class="problem-votes">
-            <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(problem), remote: true, method: :put %>
-            <span id="rating-<%= problem.id %>" class="problem-rating"><%= problem.rating %></span>
-            <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(problem), remote: true, method: :put %>
-          </div>
-          <div class="problem-views">
-            <%= problem.views %><br>views
-          </div>
+<% @problems.each_with_index do |problem, index| %>
+  <% if index % 2 == 0 %>
+  <div class="grid-problem-row row">
+  <% end %>
+
+  <div class="span6">
+    <div class="grid-problem-frame" data-content="<%= index + 1 %>">
+      <div class="grid-problem-stats-box pull-left">
+        <div class="grid-problem-votes">
+          <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(problem), remote: true, method: :put %>
+          <span id="rating-<%= problem.id %>" class="grid-problem-rating"><%= problem.rating %></span>
+          <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(problem), remote: true, method: :put %>
         </div>
-        <div id="<%= problem.id %>" class="problem-content pull-left clearfix">
-          <h4><%= link_to problem.title, problem %></h4>
-          <span class="problem-info">Posted by <% if problem.user %><strong><%= link_to problem.user.nickname, user_path(problem.user)  %><% else %>Anonymous<% end %></strong> <span class="muted"><%= time_ago_in_words(problem.created_at) %> ago</span></span>
-          <ul class="tag-list">
-            <% problem.tags.each do |tag| %>
-              <li class="tag-list-token"><%= tag %></li>
-            <% end %>
-          </ul>
+        <div class="grid-problem-views">
+          <%= problem.views %><br>views
         </div>
-        <div class="clearfix"></div>
       </div>
-    <% end %>
-  </div>
-
-  <div class="span3">
-    <div class="bordered-unit">
-      sidebar
+      <div id="<%= problem.id %>" class="grid-problem-content pull-left">
+        <h4><%= link_to problem.title, problem %></h4>
+        <span class="grid-problem-info">Posted by <% if problem.user %><strong><%= link_to problem.user.nickname, user_path(problem.user)  %><% else %>Anonymous<% end %></strong> <span class="muted"><%= time_ago_in_words(problem.created_at) %> ago</span></span>
+        <ul class="tag-list">
+          <% problem.tags.each do |tag| %>
+            <li class="tag-list-token"><%= tag %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="clearfix"></div>
     </div>
   </div>
-</div>
+
+  <% if index % 2 == 1 || index == @problems.count - 1 %>
+  </div>
+  <% end %>
+<% end %>

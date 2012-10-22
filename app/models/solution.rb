@@ -4,8 +4,8 @@ class Solution
 
   field :body, type: String
 
-  belongs_to :user
-  belongs_to :problem
+  belongs_to :user, index: true
+  belongs_to :problem, index: true
 
   validates_presence_of :body
 end

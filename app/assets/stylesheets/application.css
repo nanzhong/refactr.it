@@ -18,3 +18,28 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+
+.problem-submit {
+  font-size: 1.5em;
+  line-height: 1.75em;
+  margin: 10px 0 10px 0;
+  padding-right: 30px;
+}
+
+.footer {
+  padding: 70px 0;
+  margin-top: 30px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+}
+.footer p {
+  margin-bottom: 0;
+  color: #777;
+}
+.footer-links {
+  margin: 10px 0;
+}
+.footer-links li {
+  display: inline;
+  margin-right: 10px;
+}

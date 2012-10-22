@@ -14,8 +14,10 @@ class Problem
   field :rating, type: Integer, default: 0
   field :views, type: Integer, default: 0
 
-  belongs_to :user
+  belongs_to :user, index: true
   has_many :solutions
+
+  index({ tags: 1 })
 
   validates_presence_of :title, :body, :tags
 

@@ -55,13 +55,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">refactr.it</a>
+          <%= link_to 'refactr.it', root_path, class: 'brand' %>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Problems", problems_path %></li>
+              <li<%= params[:controller] == 'problems' && params[:action] == 'index' ? ' class="active"'.html_safe : '' %>><%= link_to "Problems", problems_path %></li>
+              <li<%= params[:controller] == 'problems' && params[:action] == 'new' ? ' class="active"'.html_safe : '' %>><%= link_to "Submit a Problem", new_problem_path %></li>
             </ul>
+
             <ul class="nav pull-right">
-              <li><%= link_to "Submit a Problem", new_problem_path %></li>
+              <li>
+              <form class="form-search" style="padding:5px;margin:0;">
+                <div class="input-append">
+                  <input type="text" class="span2 search-query" placeholder="Search...">
+                  <button type="submit" class="btn" style="margin-top:0;"><i class="icon-search"></i></button>
+                </div>
+              </form>
+              </li>
               <li class="divider-vertical"></li>
               <% if user_signed_in? %>
                 <li><%= link_to current_user.nickname, current_user %></li>
@@ -83,12 +92,18 @@
           <%= yield %>
         </div>
       </div><!--/row-->
-
-      <footer>
-        <p>&copy; refactr.it 2012</p>
-      </footer>
-
     </div> <!-- /container -->
+
+    <footer class="footer">
+    <div class="container">
+      <p class="pull-right"><a href="#">Back to top <i class="icon-arrow-up"></i></a></p>
+      <p>Built and design by Nan Zhong.</p>
+      <p>Copyright &copy; refactr.it 2012. User contributions licensed under cc-wiki with attribution required.</p>
+      <ul class="footer-links">
+        <li><a href="#">nine27.com</a></li>
+      </ul>
+    </div>
+    </footer>
 
   </body>
 </html>
