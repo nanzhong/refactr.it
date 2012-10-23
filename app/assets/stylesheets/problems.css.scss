@@ -135,7 +135,9 @@ ul.problem-sort-links {
 }
 
 .grid-problem-votes {
-  line-height: 4em;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px 0 10px 0;
 }
 
 .grid-problem-views {
@@ -146,8 +148,8 @@ ul.problem-sort-links {
 }
 
 .grid-problem-rating {
-  padding: 5px;
   font-size: 1.5em;
+  font-weight: bold;
 }
 
 
@@ -208,11 +210,8 @@ ul.problem-sort-links {
 .problem-votes {
   padding: 0;
   line-height: 3em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 130px;
-  font-size: 2em;
-  text-align: center;
+  font-size: 1.8em;
+  text-align: left;
 }
 
 .problem-rating {
@@ -260,12 +259,13 @@ ul.problem-sort-links {
 }
 
 .solution-problem-votes {
-  line-height: 3em;
+  font-size: 1.1em;
+  text-align: center;
 }
 
 .solution-problem-rating {
   padding: 5px;
-  font-size: 1.3em;
+  font-weight: bold;
 }
 
 .solution-actions {

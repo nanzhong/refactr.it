@@ -24,9 +24,7 @@
     <div class="grid-problem-frame" data-content="<%= index + 1 %>">
       <div class="grid-problem-stats-box pull-left">
         <div class="grid-problem-votes">
-          <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(problem), remote: true, method: :put %>
-          <span id="rating-<%= problem.id %>" class="grid-problem-rating"><%= problem.rating %></span>
-          <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(problem), remote: true, method: :put %>
+          <span id="rating-<%= problem.id %>" class="grid-problem-rating"><%= problem.rating %></span><br>Rating
         </div>
         <div class="grid-problem-views">
           <%= problem.views %><br>views

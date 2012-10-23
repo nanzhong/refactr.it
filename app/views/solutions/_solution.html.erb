@@ -5,9 +5,9 @@
 
         <div class="span1">
           <div class="solution-problem-votes">
+            <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %><br>
+            <span id="solution-rating-<%= solution.id %>" class="solution-problem-rating"><%= solution.rating %></span><br>
             <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %>
-            <span id="solution-rating-<%= solution.id %>" class="solution-problem-rating"><%= solution.rating %></span>
-            <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %>
           </div>
         </div>
 
@@ -16,7 +16,7 @@
 
           <div class="solution-actions pull-left">
             <a href="#">share</a> | 
-            <% if solution.user == current_user %>
+            <% if user_signed_in? && solution.user == current_user %>
               <%= link_to 'edit', edit_problem_solution_path(solution.problem, solution), remote: true, class: 'edit-solution' %> | 
             <% end %>
             <a href="#">report</a>

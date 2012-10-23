@@ -7,7 +7,7 @@
 
     <div class="problem-actions pull-left">
       <a href="#">share</a> | 
-      <% if @problem.user == current_user %>
+      <% if user_signed_in? && @problem.user == current_user %>
         <%= link_to 'edit', edit_problem_path(@problem), class: 'edit-problem' %> | 
       <% end %>
       <a href="#">report</a>
@@ -43,9 +43,9 @@
     <div class="problem-info">
       <h5>Problem Info</h5>
         <div class="problem-votes">
-          <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(@problem), remote: true, method: :put %>
-          <span id="rating-<%= @problem.id %>" class="problem-rating"><%= @problem.rating %></span>
           <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(@problem), remote: true, method: :put %>
+          <span id="rating-<%= @problem.id %>" class="problem-rating"><%= @problem.rating %></span>
+          <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(@problem), remote: true, method: :put %>
         </div>
 
       <ul class="tag-list-new-line">

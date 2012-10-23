@@ -61,11 +61,11 @@ class ProblemsController < ApplicationController
 
   # GET /problems/:id/edit
   def edit
-    if current_user != @problem.user
+    if user_signed_in? && current_user == @problem.user
+      render
+    else
       flash[:error] = "You do not have permission to edit this problem."
       redirect_to @problem
-    else
-      render
     end
   end
 
