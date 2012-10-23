@@ -15,7 +15,7 @@ class User
   index({ email: 1 }, { unique: true })
   index({ score: 1 })
 
-  validates_presence_of :uid, :email, :nickname, :name, :score
+  validates_presence_of :uid, :email, :score
   validates_uniqueness_of :uid
 
   def self.create_from_github(auth)
@@ -26,4 +26,17 @@ class User
       name: auth['info']['name'],
       image: auth['info']['image'] })
   end
+
+  def update_from_github(auth)
+    self.email = auth['info']['email']
+    self.nickname = auth['info']['nickname']
+    self.name = auth['info']['name']
+    self.image = auth['info']['image']
+    self.save
+  end
+
+  def display_name
+    self.nickname || self.email
+  end
+
 end

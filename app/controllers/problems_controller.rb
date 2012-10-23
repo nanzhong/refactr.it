@@ -61,7 +61,12 @@ class ProblemsController < ApplicationController
 
   # GET /problems/:id/edit
   def edit
-
+    if current_user != @problem.user
+      flash[:error] = "You do not have permission to edit this problem."
+      redirect_to @problem
+    else
+      render
+    end
   end
 
   # PUT /problems/:id
@@ -73,8 +78,8 @@ class ProblemsController < ApplicationController
       else
         format.json { render json: @problem.errors, status: :unprocessable_entity }
         format.html do
-          flash.now[:error] = "Sorry, problem submitting problem...<ul>#{@problem.errors.full_messages.map {|e| "<li>#{e}</li>" }.join}</ul>".html_safe
-          render action: 'new', error: @problem.errors.full_messages 
+          flash.now[:error] = "Sorry, problem updating problem...<ul>#{@problem.errors.full_messages.map {|e| "<li>#{e}</li>" }.join}</ul>".html_safe
+          render action: 'new'
         end
       end
     end
@@ -95,14 +100,14 @@ class ProblemsController < ApplicationController
 
   # PUT /problems/:id/up_vote
   def up_vote
-    @problem.inc(:up_vote, 1)
+    @problem.inc(:up_votes, 1)
     @problem.inc(:rating, 1)
     render 'vote'
   end
 
   # PUT /problems/:id/down_vote
   def down_vote
-    @problem.inc(:down_vote, 1)
+    @problem.inc(:down_votes, 1)
     @problem.inc(:rating, -1)
     render 'vote'
   end

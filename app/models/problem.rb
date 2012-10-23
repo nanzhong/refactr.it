@@ -15,7 +15,8 @@ class Problem
   field :views, type: Integer, default: 0
 
   belongs_to :user, index: true
-  has_many :solutions
+  has_many :solutions, dependent: :destroy
+  embeds_many :comments
 
   index({ tags: 1 })
 

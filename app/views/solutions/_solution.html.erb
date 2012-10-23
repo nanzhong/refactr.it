@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="span9">
+    <div id="solution-<%= solution.id %>">
+      <div class="row">
+
+        <div class="span1">
+          <div class="solution-problem-votes">
+            <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %>
+            <span id="solution-rating-<%= solution.id %>" class="solution-problem-rating"><%= solution.rating %></span>
+            <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %>
+          </div>
+        </div>
+
+        <div class="span8 solution-content">
+          <%= solution.body_html %>
+
+          <div class="solution-actions pull-left">
+            <a href="#">share</a> | 
+            <% if solution.user == current_user %>
+              <%= link_to 'edit', edit_problem_solution_path(solution.problem, solution), remote: true, class: 'edit-solution' %> | 
+            <% end %>
+            <a href="#">report</a>
+          </div>
+
+          <div class="solution-author pull-right">
+            Answered by <strong><%= solution.user ? link_to(solution.user.display_name, user_path(solution.user)) : 'Anonymous' %></strong> <span class="muted"><%= time_ago_in_words(solution.created_at) %> ago</span>
+          </div>
+          <div class="solution-end clearfix"></div>
+        </div>
+
+      </div>
+
+      <div class="solution-comments">
+        <%= render partial: 'comments/comment', collection: solution.comments %>
+        <% if user_signed_in? %>
+          <%= render partial: 'comments/form', locals: { parent: solution, comment: solution.comments.new } %>
+        <% else %>
+          <small><%= link_to 'Sign in to comment...', sign_in_path %></small>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+$('#solution-<%= @solution.id %>').html('<%= escape_javascript(render partial: 'form', locals: { problem: @solution.problem, solution: @solution, title: 'Your Solution' }) %>');

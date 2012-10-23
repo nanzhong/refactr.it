@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="span1">&nbsp;</div>
+  <div class="span8 comment-content">
+    <%= comment.body %><span class="comment-author"><%= link_to comment.user_display_name, user_path(comment.user_id) %></span> - <span class="muted"><%= time_ago_in_words(comment.created_at) %> ago</span>
+  </div>
+</div>

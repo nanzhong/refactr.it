@@ -1,22 +1,42 @@
 <h1 class="problem-title"><%= @problem.title %></h1>
 <div class="row">
   <div class="span9">
-    <div id="<%= @problem.id %>" class="problem-content">
-      <p><%= @problem.body_html %></p>
+    <div class="problem-content">
+      <%= @problem.body_html %>
     </div>
 
     <div class="problem-actions pull-left">
       <a href="#">share</a> | 
       <% if @problem.user == current_user %>
-        <%= link_to 'edit', edit_problem_path, class: 'edit-problem' %> | 
+        <%= link_to 'edit', edit_problem_path(@problem), class: 'edit-problem' %> | 
       <% end %>
       <a href="#">report</a>
     </div>
 
     <div class="problem-author pull-right">
-      Asked by <strong><%= @problem.user ? link_to(@problem.user.nickname, user_path(@problem.user)) : 'Anonymous' %></strong> <span class="muted"><%= time_ago_in_words(@problem.created_at) %> ago</span>
+      Asked by <strong><%= @problem.user ? link_to(@problem.user.display_name, user_path(@problem.user)) : 'Anonymous' %></strong> <span class="muted"><%= time_ago_in_words(@problem.created_at) %> ago</span>
     </div>
-    <div class="clearfix"></div>
+    <div class="problem-end clearfix"></div>
+
+    <div class="problem-comments">
+      <%= render partial: 'comments/comment', collection: @problem.comments %>
+      <% if user_signed_in? %>
+        <%= render partial: 'comments/form', locals: { parent: @problem, comment: @problem.comments.new } %>
+      <% else %>
+        <small><%= link_to 'Sign in to comment...', sign_in_path %></small>
+      <% end %>
+    </div>
+
+    <div class="solutions-frame">
+      <% unless @problem.solutions.empty? %>
+        <h1 class="solutions-title"><%= @problem.solutions.count %> Solutions</h1>
+        <%= render partial: 'solutions/solution', collection: @problem.solutions.desc(:rating) %>
+      <% end %>
+    </div>
+
+    <div class="new-solution-frame">
+      <%= render partial: 'solutions/form', locals: { problem: @problem, solution: @problem.solutions.new, title: 'Submit a Solution' } %>
+    </div>
   </div>
 
   <div class="span3">
@@ -24,7 +44,7 @@
       <h5>Problem Info</h5>
         <div class="problem-votes">
           <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(@problem), remote: true, method: :put %>
-          <span class="problem-rating"><%= @problem.rating %></span>
+          <span id="rating-<%= @problem.id %>" class="problem-rating"><%= @problem.rating %></span>
           <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(@problem), remote: true, method: :put %>
         </div>
 

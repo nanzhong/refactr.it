@@ -60,6 +60,16 @@ RefactrIt::Application.routes.draw do
 
   resources :users
   resources :problems do
+    resources :comments, only: [ :create ]
+    resources :solutions, only: [ :create, :edit, :update ] do
+      resources :comments, only: [ :create ]
+
+      member do
+        put 'up_vote', as: :up_vote, method: :put
+        put 'down_vote', as: :down_vote, method: :put
+      end
+    end
+
     collection do
       get 'tags', as: :tags, defaults: { format: 'json' }
     end

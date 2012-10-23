@@ -1,0 +1,18 @@
+<h1 class="solutions-title"><%= title %></h1>
+<%= form_for [problem, solution] do |f| %>
+  <%= f.text_area :body, class: 'solution-body', id: "solution-body-#{solution.id}" %>
+  <script type="text/javascript" >
+    $('#solution-body-<%= solution.id %>').markItUp(mySettings);
+  </script>
+  <div id="solution-preview-<%= solution.id %>" class="solution-preview"></div>
+  <%= f.submit "Submit Solution", class: 'btn btn-primary btn-large' %>
+  <span id="preview-solution-button-<%= solution.id %>" class="btn btn-large">Preview</span>
+  <script type="text/javascript">
+    var converter = new Showdown.converter();
+
+    $('#preview-solution-button-<%= solution.id %>').click(function() {
+      $('#solution-preview-<%= solution.id %>').replaceWith('<div id="solution-preview-<%= solution.id %>" class="solution-preview bordered-unit">' + converter.makeHtml($('#solution-body-<%= solution.id %>').val()) + '</div>');
+      prettyPrint();
+    });
+  </script>
+<% end %>

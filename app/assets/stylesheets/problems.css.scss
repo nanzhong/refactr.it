@@ -188,16 +188,26 @@ ul.problem-sort-links {
 }
 
 .problem-content {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px dotted #eee;
   margin-bottom: 10px;
 }
 
+.problem-end {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.problem-comments {
+  margin: 10px 0 0 0;
+}
+
 .problem-info {
+  margin-bottom: 10px;
 }
 
 .problem-votes {
   padding: 0;
-  line-height: 4em;
+  line-height: 3em;
   margin-left: auto;
   margin-right: auto;
   width: 130px;
@@ -211,9 +221,65 @@ ul.problem-sort-links {
 }
 
 .problem-stats {
+  margin-bottom: 10px;
 }
 
 .problem-stats > p {
   font-size: 0.9em;
   margin: 0;
+}
+
+.comment-form {
+  margin-top: 10px;
+}
+
+.comment-body {
+  height: 100px;
+}
+
+.comment-content {
+  padding: 5px 0 5px 0;
+  border-bottom: 1px dotted #ddd;
+  font-size: 0.9em;
+}
+
+.comment-author {
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.solutions-title {
+  font-size: 1.75em;
+  line-height: 1.75em;
+  border-bottom: 1px solid #DDD;
+}
+
+.solution-preview {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.solution-problem-votes {
+  line-height: 3em;
+}
+
+.solution-problem-rating {
+  padding: 5px;
+  font-size: 1.3em;
+}
+
+.solution-actions {
+  padding: 10px 0 10px 0;
+  font-size: 0.9em;
+}
+
+.solution-author {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+.solution-content {
+  padding: 5px 0 5px 0;
+  border-bottom: 1px dotted #ddd;
 }
