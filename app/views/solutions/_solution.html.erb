@@ -1,8 +1,7 @@
 <div class="row">
   <div class="span9">
-    <div id="solution-<%= solution.id %>">
+    <div id="solution-<%= solution.id %>" class="solution-row">
       <div class="row">
-
         <div class="span1">
           <div class="solution-problem-votes">
             <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %><br>
@@ -34,8 +33,16 @@
         <%= render partial: 'comments/comment', collection: solution.comments %>
         <% if user_signed_in? %>
           <%= render partial: 'comments/solution_form', locals: { problem: solution.problem, solution: solution, comment: solution.comments.new } %>
+          <div class="add-comment pull-right"><button id="problem-comments-form-show-<%= solution.id %>" class="btn btn-mini">Add comment...</button></div>
+          <div class="clearfix"></div>
+          <script type="text/javascript">
+            $('#problem-comments-form-show-<%= solution.id %>').click(function() {
+                $('#problem-comments-form-<%= solution.id %>').show();
+                $('#problem-comments-form-show-<%= solution.id %>').hide();
+                });
+</script>
         <% else %>
-          <small><%= link_to 'Sign in to comment...', sign_in_path %></small>
+          <div class="add-comment"><small><%= link_to 'Sign in to comment...', sign_in_path %></small></div>
         <% end %>
       </div>
 

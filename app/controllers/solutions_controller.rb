@@ -14,14 +14,14 @@ class SolutionsController < ApplicationController
     respond_to do |format|
       if @solution.save
         format.json { render json: @solution, status: :created, location: @problem }
-        format.html { redirect_to @problem }
+        format.html { redirect_to problem_path(@problem, anchor: "solution-#{@solution.id}") }
       else
         @solution.problem = nil
 
         format.json { render json: @solutions.errors, status: :unprocessable_entity }
         format.html do
           flash.now[:error] = "Sorry, problem submitting solution...<ul>#{@solution.errors.full_messages.map {|e| "<li>#{e}</li>" }.join}</ul>".html_safe
-          render 'problems/show'
+          render 'problems/show#form'
         end
       end
     end

@@ -199,6 +199,10 @@ ul.problem-sort-links {
   padding-bottom: 10px;
 }
 
+#problem-comments-form-show {
+  cursor: text;
+}
+
 .problem-comments {
   margin: 10px 0 0 0;
 }
@@ -228,6 +232,10 @@ ul.problem-sort-links {
   margin: 0;
 }
 
+.add-comment {
+  margin: 10px 0 10px 0;
+}
+
 .comment-form {
   margin-top: 10px;
 }
@@ -247,10 +255,15 @@ ul.problem-sort-links {
   font-weight: bold;
 }
 
+.solution-row {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
 .solutions-title {
   font-size: 1.75em;
   line-height: 1.75em;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #ddd;
 }
 
 .solution-preview {

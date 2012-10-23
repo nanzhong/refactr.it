@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
       respond_to do |format|
         if @comment.save
           format.json { render json: @comment, status: :created, location: @problem }
-          format.html { redirect_to @problem }
+          format.html { redirect_to problem_path(@problem, anchor: "comment-#{@comment.id}") }
         else
           @comment.problem = nil
 

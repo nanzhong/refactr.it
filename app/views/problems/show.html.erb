@@ -22,8 +22,16 @@
       <%= render partial: 'comments/comment', collection: @problem.comments %>
       <% if user_signed_in? %>
         <%= render partial: 'comments/problem_form', locals: { problem: @problem, comment: @problem.comments.new } %>
+        <div class="add-comment pull-right"><button id="problem-comments-form-show" class="btn btn-mini">Add comment...</button></div>
+        <div class="clearfix"></div>
+        <script type="text/javascript">
+          $('#problem-comments-form-show').click(function() {
+            $('#problem-comments-form').show();
+            $('#problem-comments-form-show').hide();
+          });
+        </script>
       <% else %>
-        <small><%= link_to 'Sign in to comment...', sign_in_path %></small>
+        <div class="add-comment"><small><%= link_to 'Sign in to comment...', sign_in_path %></small></div>
       <% end %>
     </div>
 
