@@ -1,0 +1,10 @@
+<%= form_for [problem, comment] do |f| %>
+  <div class="row comment-form">
+    <div class="span1">&nbsp;</div>
+    <div class="span8">
+      <%= f.text_area :body, class: 'comment-body span8' %>
+    </div>
+  </div>
+  <%= f.submit "Comment", class: 'btn btn-small pull-right' %>
+  <div class="clearfix"></div>
+<% end %>

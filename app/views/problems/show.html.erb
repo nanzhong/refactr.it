@@ -21,7 +21,7 @@
     <div class="problem-comments">
       <%= render partial: 'comments/comment', collection: @problem.comments %>
       <% if user_signed_in? %>
-        <%= render partial: 'comments/form', locals: { parent: @problem, comment: @problem.comments.new } %>
+        <%= render partial: 'comments/problem_form', locals: { problem: @problem, comment: @problem.comments.new } %>
       <% else %>
         <small><%= link_to 'Sign in to comment...', sign_in_path %></small>
       <% end %>

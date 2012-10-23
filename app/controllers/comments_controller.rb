@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :problem_from_id
+  before_filter :solution_from_id
 
   # POST /problems/:problem_id/comments
   def create
