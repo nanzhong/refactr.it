@@ -60,7 +60,7 @@ class Problem
 
   def body_html
     @markdown = Redcarpet::Markdown.new(PrettyCode, autolink: true, space_after_headers: true)
-    @markdown.render(self.body).html_safe
+    @markdown.render(self.body)
   end
 
   class PrettyCode < Redcarpet::Render::HTML
