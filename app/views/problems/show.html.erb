@@ -54,6 +54,11 @@
           <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(@problem), remote: true, method: :put %>
           <span id="rating-<%= @problem.id %>" class="problem-rating"><%= @problem.rating %></span>
           <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(@problem), remote: true, method: :put %>
+          <div class="progress">
+            <% up_percent = @problem.up_votes.to_f / (@problem.down_votes + @problem.up_votes) * 100 %>
+            <div class="bar bar-success" style="width: <%= up_percent %>%;"></div>
+            <div class="bar bar-danger" style="width: <%= 100 - up_percent %>%;"></div>
+          </div>
         </div>
 
       <ul class="tag-list-new-line">

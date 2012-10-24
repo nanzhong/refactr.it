@@ -7,6 +7,8 @@ gem "twitter-bootstrap-rails"
 gem 'httparty'
 gem 'redcarpet'
 gem 'puma'
+gem 'tire'
+gem 'kaminari'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

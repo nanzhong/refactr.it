@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
 
-  before_filter :problem_from_id, except: [ :index, :create, :new, :tags ]
+  before_filter :problem_from_id, except: [ :index, :create, :new, :tags, :search ]
 
   # GET /problems
   def index
@@ -11,7 +11,20 @@ class ProblemsController < ApplicationController
       else               :rating
     end
 
-    @problems = Problem.desc(@sort)
+    @problems =
+      if params[:q]
+        Problem.search do |search|
+          search.query do |query|
+            query.string params[:q]
+          end
+
+          search.sort do |sort|
+            sort.by @sort, 'desc'
+          end
+        end
+      else
+        @problems = Problem.desc(@sort)
+      end
 
     respond_to do |format|
       format.json { render json: @problems }

@@ -64,12 +64,12 @@
 
             <ul class="nav pull-right">
               <li>
-              <form class="form-search" style="padding:5px;margin:0;">
+              <%= form_tag problems_path, method: :get, class: 'form-search', style: 'padding:5px;margin:0;' do %>
                 <div class="input-append">
-                  <input type="text" class="span2 search-query" placeholder="Search...">
+                  <%= text_field_tag :q, nil, class: 'span2 search-query', placeholder: 'Search...' %>
                   <button type="submit" class="btn" style="margin-top:0;"><i class="icon-search"></i></button>
                 </div>
-              </form>
+              <% end %>
               </li>
               <li class="divider-vertical"></li>
               <% if user_signed_in? %>
