@@ -1,10 +1,14 @@
-<% if @problems.empty? %>
+<% if params[:q] && @problems.empty? %>
   <div>
     <h1 class="all-problems-title">Sorry, no problems found...</h1>
   </div>
 <% else %>
   <div>
-    <h1 class="all-problems-title pull-left">Top Problems</h1>
+    <% if params[:q] %>
+      <h1 class="all-problems-title pull-left">Search Results</h1>
+    <% else %>
+      <h1 class="all-problems-title pull-left">Top Problems</h1>
+    <% end %>
     <ul class="problem-sort-links nav nav-tabs pull-right">
       <li></li>
       <li <%= @sort == :rating ? ' class="active"'.html_safe : '' %> >
