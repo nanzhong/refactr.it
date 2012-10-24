@@ -9,6 +9,7 @@ gem 'redcarpet'
 gem 'puma'
 gem 'tire'
 gem 'kaminari'
+gem 'newrelic_rpm'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
