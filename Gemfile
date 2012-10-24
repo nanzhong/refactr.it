@@ -8,7 +8,7 @@ gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
 gem "twitter-bootstrap-rails"
 gem 'httparty'
 gem 'redcarpet'
-gem 'puma'
+gem 'unicorn'
 gem 'tire'
 gem 'kaminari'
 gem 'newrelic_rpm'
