@@ -1,63 +1,70 @@
-<div class="row">
-  <div class="span9">
-    <% if params[:q] && @problems.empty? %>
-      <div>
-        <h1 class="all-problems-title">Sorry, no problems found...</h1>
-      </div>
+<% if params[:q] && @problems.empty? %>
+  <div>
+    <h1 class="all-problems-title">Sorry, no problems found...</h1>
+  </div>
+<% else %>
+  <div>
+    <% if params[:q] %>
+      <h1 class="all-problems-title pull-left">Search Results</h1>
     <% else %>
-      <div>
-        <% if params[:q] %>
-          <h1 class="all-problems-title pull-left">Search Results</h1>
-        <% else %>
-          <h1 class="all-problems-title pull-left">Top Problems</h1>
-        <% end %>
-        <ul class="problem-sort-links nav nav-tabs pull-right">
-          <li></li>
-          <li <%= @sort == :rating ? ' class="active"'.html_safe : '' %> >
-          <%= link_to 'Top Rated', problems_path(params.except(:page).merge(order: "rating")), class: 'problems-sort-link' %>
-          </li>
-          <li<%= @sort == :views ? ' class="active"'.html_safe : '' %>>
-          <%= link_to 'Most Viewed', problems_path(params.except(:page).merge(order: "views")), class: 'problems-sort-link' %>
-          </li>
-          <li<%= @sort == :created_at ? ' class="active"'.html_safe : '' %>>
-          <%= link_to 'Newest', problems_path(params.except(:page).merge(order: "date")), class: 'problems-sort-link' %>
-          </li>
+      <h1 class="all-problems-title pull-left">Top Problems</h1>
+    <% end %>
+    <ul class="problem-sort-links nav nav-tabs pull-right">
+      <li></li>
+      <li <%= @sort == :rating ? ' class="active"'.html_safe : '' %> >
+      <%= link_to 'Top Rated', problems_path(params.except(:page).merge(order: "rating")), class: 'problems-sort-link' %>
+      </li>
+      <li<%= @sort == :views ? ' class="active"'.html_safe : '' %>>
+      <%= link_to 'Most Viewed', problems_path(params.except(:page).merge(order: "views")), class: 'problems-sort-link' %>
+      </li>
+      <li<%= @sort == :created_at ? ' class="active"'.html_safe : '' %>>
+      <%= link_to 'Newest', problems_path(params.except(:page).merge(order: "date")), class: 'problems-sort-link' %>
+      </li>
+    </ul>
+    <div class="clearfix"></div>
+  </div>
+
+  <% @problems.each_with_index do |problem, index| %>
+    <% if index % 2 == 0 %>
+      <div class="row"><!-- problem row start -->
+    <% end %>
+
+    <div class="span6">
+      <div id="<%= problem.id %>" class="grid-problem-content">
+        <div class="grid-problem-stats pull-left">
+          <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating<br>
+          <span class="grid-problem-count"><%= problem.solutions_count %></span><br>solutions
+        </div>
+
+        <div class="grid-problem-views pull-right">
+          <span class="grid-problem-count"><%= problem.views %></span><br>views
+        </div>
+
+        <h4>
+          <%= link_to problem.title, problem %>
+          <% unless problem.source.blank? %>
+            <%= link_to_source problem, icon: true %>
+          <% end %>
+        </h4>
+        <span class="grid-problem-info">
+          <% if problem.source.blank? %>
+            Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong>
+          <% else %>
+            Imported from: <%= link_to_source problem %>
+          <% end %>
+          <span class="muted"> <%= time_ago_in_words(problem.created_at) %> ago</span>
+        </span>
+        <ul class="tag-list">
+          <% problem.tags.each do |tag| %>
+            <li class="tag-list-token"><%= tag %></li>
+          <% end %>
         </ul>
         <div class="clearfix"></div>
       </div>
+    </div>
 
-      <% @problems.each_with_index do |problem, index| %>
-        <div id="<%= problem.id %>" class="grid-problem-content">
-          <div class="grid-problem-stats pull-left">
-            <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating<br>
-            <span class="grid-problem-count"><%= problem.solutions_count %></span><br>solutions
-          </div>
-
-          <div class="grid-problem-views pull-right">
-            <span class="grid-problem-count"><%= problem.views %></span><br>views
-          </div>
-
-          <h4><%= link_to problem.title, problem %></h4>
-          <span class="grid-problem-info">
-            <% if problem.source.blank? %>
-              Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong>
-            <% else %>
-              Imported from: <%= link_to_source problem %>
-            <% end %>
-            <span class="muted"> <%= time_ago_in_words(problem.created_at) %> ago</span>
-          </span>
-          <ul class="tag-list">
-            <% problem.tags.each do |tag| %>
-              <li class="tag-list-token"><%= tag %></li>
-            <% end %>
-          </ul>
-          <div class="clearfix"></div>
-        </div>
-      <% end %>
+    <% if index % 2 == 1 || index == Kaminari.config.default_per_page - 1  %>
+      </div><!-- problem row end -->
     <% end %>
-  </div>
-
-  <div class="span3">
-    <h3>Popular Tags</h3>
-  </div>
-</div>
+  <% end %>
+<% end %>
