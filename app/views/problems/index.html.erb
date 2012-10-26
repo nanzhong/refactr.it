@@ -27,29 +27,24 @@
       </div>
 
       <% @problems.each_with_index do |problem, index| %>
-        <div class="row">
-          <div id="<%= problem.id %>" class="grid-problem-content">
-            <div class="span1">
-              <div class="grid-problem-stats">
-                <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating<br>
-                <span class="grid-problem-count"><%= problem.solutions_count %></span><br>solutions
-              </div>
-            </div>
-
-            <div class="span8">
-              <div class="grid-problem-views pull-right">
-                <span class="grid-problem-count"><%= problem.views %></span><br>views
-              </div>
-
-              <h4><%= link_to problem.title, problem %></h4>
-              <span class="grid-problem-info">Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong> <span class="muted"><%= time_ago_in_words(problem.created_at) %> ago</span></span>
-              <ul class="tag-list">
-                <% problem.tags.each do |tag| %>
-                  <li class="tag-list-token"><%= tag %></li>
-                <% end %>
-              </ul>
-            </div>
+        <div id="<%= problem.id %>" class="grid-problem-content">
+          <div class="grid-problem-stats pull-left">
+            <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating<br>
+            <span class="grid-problem-count"><%= problem.solutions_count %></span><br>solutions
           </div>
+
+          <div class="grid-problem-views pull-right">
+            <span class="grid-problem-count"><%= problem.views %></span><br>views
+          </div>
+
+          <h4><%= link_to problem.title, problem %></h4>
+          <span class="grid-problem-info">Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong> <span class="muted"><%= time_ago_in_words(problem.created_at) %> ago</span></span>
+          <ul class="tag-list">
+            <% problem.tags.each do |tag| %>
+              <li class="tag-list-token"><%= tag %></li>
+            <% end %>
+          </ul>
+          <div class="clearfix"></div>
         </div>
       <% end %>
     <% end %>

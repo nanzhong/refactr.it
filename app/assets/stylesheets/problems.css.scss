@@ -17,6 +17,7 @@ ul.tag-list {
   background-color: #fff;
   list-style-type: none;
   clear: left;
+  display: inline;
 }
 
 ul.tag-list-new-line {
@@ -105,7 +106,7 @@ ul.problem-sort-links {
 }
 
 .grid-problem-stats {
-  margin: 15px 0 15px 0;
+  margin: 0 10px 0 0;
   text-align: center;
   font-size: 0.8em;
 }
@@ -124,9 +125,10 @@ ul.problem-sort-links {
 
 
 .grid-problem-info {
+  display: block;
+  margin-bottom: 5px;
   font-size: 0.8em;
 }
-
 
 // new/edit
 .problem-body {
