@@ -38,7 +38,14 @@
           </div>
 
           <h4><%= link_to problem.title, problem %></h4>
-          <span class="grid-problem-info">Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong> <span class="muted"><%= time_ago_in_words(problem.created_at) %> ago</span></span>
+          <span class="grid-problem-info">
+            <% if problem.source.blank? %>
+              Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong>
+            <% else %>
+              Imported from: <%= link_to_source problem %>
+            <% end %>
+            <span class="muted"> <%= time_ago_in_words(problem.created_at) %> ago</span>
+          </span>
           <ul class="tag-list">
             <% problem.tags.each do |tag| %>
               <li class="tag-list-token"><%= tag %></li>

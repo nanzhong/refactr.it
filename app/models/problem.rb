@@ -44,6 +44,8 @@ class Problem
     indexes :solutions_count, index: :not_analyzed
     indexes :comments,        index: :not_analyzed
     indexes :created_at,      type: 'date'
+    indexes :source,          index: :not_analyzed
+    indexes :source_id,       index: :not_analyzed
   end
 
   def tags_str=(tags_str)
