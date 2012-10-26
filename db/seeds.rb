@@ -5,3 +5,33 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+
+require 'csv'
+
+problems_count = 0
+puts "Loading SO Problems"
+CSV.foreach("#{Rails.root}/db/so_problems.csv", headers: true) do |row|
+  problems = Problem.where(source: :stack_overflow, source_id: row['Id'] )
+  if problems.empty?
+    problem = Problem.new
+  else
+    problem = problems.first
+  end
+  problem.title = row['Title']
+  problem.body = row['Body'].gsub('<pre><code>', '<pre class="prettyprint linenums"><code>')
+  problem.parsed = true
+  problem.tags = row['Tags'].gsub(/></, ',').gsub(/<|>/,'').split(',') - ['refactoring']
+  problem.source = :stack_overflow
+  problem.source_id = row['Id']
+  problem.rating = row['Score']
+  problem.up_votes = problem.rating
+  problem.views = row['ViewCount']
+  problem.parsed = true
+  problem.created_at = row['CreationDate']
+
+  problem.save
+
+  problems_count += 1
+  puts "Processed #{problems_count}" if problems_count % 100 == 0
+end

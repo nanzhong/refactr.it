@@ -1,59 +1,60 @@
-<% if params[:q] && @problems.empty? %>
-  <div>
-    <h1 class="all-problems-title">Sorry, no problems found...</h1>
-  </div>
-<% else %>
-  <div>
-    <% if params[:q] %>
-      <h1 class="all-problems-title pull-left">Search Results</h1>
+<div class="row">
+  <div class="span9">
+    <% if params[:q] && @problems.empty? %>
+      <div>
+        <h1 class="all-problems-title">Sorry, no problems found...</h1>
+      </div>
     <% else %>
-      <h1 class="all-problems-title pull-left">Top Problems</h1>
+      <div>
+        <% if params[:q] %>
+          <h1 class="all-problems-title pull-left">Search Results</h1>
+        <% else %>
+          <h1 class="all-problems-title pull-left">Top Problems</h1>
+        <% end %>
+        <ul class="problem-sort-links nav nav-tabs pull-right">
+          <li></li>
+          <li <%= @sort == :rating ? ' class="active"'.html_safe : '' %> >
+          <%= link_to 'Top Rated', problems_path(params.except(:page).merge(order: "rating")), class: 'problems-sort-link' %>
+          </li>
+          <li<%= @sort == :views ? ' class="active"'.html_safe : '' %>>
+          <%= link_to 'Most Viewed', problems_path(params.except(:page).merge(order: "views")), class: 'problems-sort-link' %>
+          </li>
+          <li<%= @sort == :created_at ? ' class="active"'.html_safe : '' %>>
+          <%= link_to 'Newest', problems_path(params.except(:page).merge(order: "date")), class: 'problems-sort-link' %>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+
+      <% @problems.each_with_index do |problem, index| %>
+        <div class="row">
+          <div id="<%= problem.id %>" class="grid-problem-content">
+            <div class="span1">
+              <div class="grid-problem-votes">
+                <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating
+              </div>
+            </div>
+
+            <div class="span8">
+              <div class="grid-problem-views pull-right">
+                <span class="grid-problem-count"><%= problem.views %></span><br>views
+              </div>
+
+              <h4><%= link_to problem.title, problem %></h4>
+              <span class="grid-problem-info">Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong> <span class="muted"><%= time_ago_in_words(problem.created_at) %> ago</span></span>
+              <ul class="tag-list">
+                <% problem.tags.each do |tag| %>
+                  <li class="tag-list-token"><%= tag %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-    <ul class="problem-sort-links nav nav-tabs pull-right">
-      <li></li>
-      <li <%= @sort == :rating ? ' class="active"'.html_safe : '' %> >
-      <%= link_to 'Top Rated', problems_path(params.except(:page).merge(order: "rating")), class: 'problems-sort-link' %>
-      </li>
-      <li<%= @sort == :views ? ' class="active"'.html_safe : '' %>>
-      <%= link_to 'Most Viewed', problems_path(params.except(:page).merge(order: "views")), class: 'problems-sort-link' %>
-      </li>
-      <li<%= @sort == :created_at ? ' class="active"'.html_safe : '' %>>
-      <%= link_to 'Newest', problems_path(params.except(:page).merge(order: "date")), class: 'problems-sort-link' %>
-      </li>
-    </ul>
-    <div class="clearfix"></div>
   </div>
 
-  <% @problems.each_with_index do |problem, index| %>
-    <% if index % 2 == 0 %>
-      <div class="grid-problem-row row">
-      <% end %>
-
-      <div class="span6">
-        <div class="grid-problem-frame" data-content="<%= index + 1 %>">
-          <div class="grid-problem-stats-box pull-left">
-            <div class="grid-problem-votes">
-              <span id="rating-<%= problem.id %>" class="grid-problem-rating"><%= problem.rating %></span><br>Rating
-            </div>
-            <div class="grid-problem-views">
-              <%= problem.views %><br>views
-            </div>
-          </div>
-          <div id="<%= problem.id %>" class="grid-problem-content pull-left">
-            <h4><%= link_to problem.title, problem %></h4>
-            <span class="grid-problem-info">Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong> <span class="muted"><%= time_ago_in_words(problem.created_at) %> ago</span></span>
-            <ul class="tag-list">
-              <% problem.tags.each do |tag| %>
-                <li class="tag-list-token"><%= tag %></li>
-              <% end %>
-            </ul>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-
-      <% if index % 2 == 1 || index == @problems.count - 1 %>
-      </div>
-    <% end %>
-  <% end %>
-<% end %>
+  <div class="span3">
+    <h3>Popular Tags</h3>
+  </div>
+</div>

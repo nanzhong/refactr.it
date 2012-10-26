@@ -4,10 +4,13 @@ class Solution
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :body, type: String
-  field :up_votes, type: Integer, default: 0
+  field :body,       type: String
+  field :up_votes,   type: Integer, default: 0
   field :down_votes, type: Integer, default: 0
-  field :rating, type: Integer, default: 0
+  field :rating,     type: Integer, default: 0
+  field :parsed,     type: Boolean, default: false
+  field :source,     type: Symbol
+  field :source_id,  type: String
 
   belongs_to :user, index: true
   belongs_to :problem, index: true

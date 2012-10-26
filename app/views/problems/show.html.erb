@@ -2,7 +2,7 @@
 <div class="row">
   <div class="span9">
     <div class="problem-content">
-      <%= @problem.body_html %>
+      <%= @problem.parsed ? @problem.body.html_safe : @problem.body_html %>
     </div>
 
     <div class="problem-actions pull-left">

@@ -4,6 +4,8 @@ class ProblemsController < ApplicationController
 
   # GET /problems
   def index
+    @page = params[:page] || 1
+
     @sort = case (params[:order] || "").downcase
       when "rating" then :rating
       when "views"  then :views
@@ -23,7 +25,7 @@ class ProblemsController < ApplicationController
           end
         end
       else
-        @problems = Problem.desc(@sort)
+        @problems = Problem.desc(@sort).page(@page)
       end
 
     respond_to do |format|

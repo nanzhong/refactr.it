@@ -16,13 +16,17 @@ class Problem
   field :down_votes,      type: Integer, default: 0
   field :rating,          type: Integer, default: 0
   field :views,           type: Integer, default: 0
+  field :parsed,          type: Boolean, default: false
+  field :source,          type: Symbol
+  field :source_id,       type: String
 
   belongs_to :user, index: true
   has_many :solutions, dependent: :destroy
   embeds_many :comments
 
   index({ tags: 1 })
-  index({ created_at: 1})
+  index({ source: 1, source_id: 1 }, { unique: true })
+  index({ created_at: 1 })
 
   validates_presence_of :title, :body, :tags
 

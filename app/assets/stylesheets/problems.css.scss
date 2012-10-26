@@ -108,6 +108,7 @@ ul.problem-sort-links {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  margin-bottom: 10px;
 }
 
 .grid-problem-frame::after {
@@ -130,24 +131,33 @@ ul.problem-sort-links {
   min-height: 80px;
 }
 
-.grid-problem-stats-box {
-  margin-right: 15px;
+.grid-problem-votes {
+  margin: 20px 0 20px 0;
+}
+
+.grid-problem-solutions {
+  vertical-align: middle;
 }
 
 .grid-problem-votes {
   text-align: center;
-  margin-top: 10px;
-  padding: 10px 0 10px 0;
 }
 
 .grid-problem-views {
+  color: #eee;
+  text-align: center;
+  font-size: 1.75em;
+  margin: 20px 0 20px 0;
+}
+
+.grid-problem-solutions {
   font-color: #ccc;
   text-align: center;
   font-size: 0.8em;
   line-height: 1em;
 }
 
-.grid-problem-rating {
+.grid-problem-count {
   font-size: 1.5em;
   font-weight: bold;
 }
