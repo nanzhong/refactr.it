@@ -4,7 +4,7 @@ class ProblemsController < ApplicationController
 
   # GET /problems
   def index
-    @page = params[:page] || 1
+    @page = (params[:page] || 1).to_i
 
     @sort = case (params[:order] || "").downcase
       when "rating" then :rating
@@ -23,6 +23,10 @@ class ProblemsController < ApplicationController
           search.sort do |sort|
             sort.by @sort, 'desc'
           end
+
+          per_page = Kaminari.config.default_per_page
+          search.from (@page - 1) * per_page
+          search.size per_page
         end
       else
         @problems = Problem.desc(@sort).page(@page)
