@@ -9,7 +9,6 @@
 
 require 'csv'
 
-=begin
 problems_count = 0
 puts "Loading SO Problems"
 CSV.foreach("#{Rails.root}/db/so_problems.csv", headers: true) do |row|
@@ -36,7 +35,6 @@ CSV.foreach("#{Rails.root}/db/so_problems.csv", headers: true) do |row|
   problems_count += 1
   puts "Processed #{problems_count}" if problems_count % 100 == 0
 end
-=end
 
 solutions_count = 0
 puts "Loading SO Solutions"
