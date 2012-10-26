@@ -30,8 +30,9 @@
         <div class="row">
           <div id="<%= problem.id %>" class="grid-problem-content">
             <div class="span1">
-              <div class="grid-problem-votes">
-                <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating
+              <div class="grid-problem-stats">
+                <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating<br>
+                <span class="grid-problem-count"><%= problem.solutions_count %></span><br>solutions
               </div>
             </div>
 
