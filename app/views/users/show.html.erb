@@ -1,2 +1,19 @@
-<h1><%= @user.email %></h1>
-<%= @user.name %> - <%= @user.score %>
+<div class="row">
+  <div class="span3">
+    <%= image_tag @user.image, class: 'img-polaroid' %>
+  </div>
+
+  <div class="span9">
+    <div class="user-name-info">
+      <h1 class="users-title"><%= @user.name %> <span class="muted">(<%= @user.score %>)</span></h1>
+      <h2 class="users-subtitle"><%= @user.nickname %></h2>
+    </div>
+    <div>
+      <p><strong>Joined</strong> <%= time_ago_in_words @user.created_at %> ago</p>
+      <p>
+      <strong>Problems submitted:</strong> <%= @user.problems_count %><br>
+      <strong>Solutions submitted:</strong> <%= @user.solutions_count %>
+      </p>
+    </div>
+  </div>
+</div>

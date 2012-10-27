@@ -1,3 +1,18 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.users-title {
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin: 5px 0 5px 0;
+}
+
+.users-subtitle {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin: 5px 0 5px 0;
+}
+
+.user-name-info {
+  border-bottom: 1px solid #ddd;
+}
