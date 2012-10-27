@@ -78,7 +78,7 @@
 
       <ul class="tag-list-new-line">
         <% @problem.tags.each do |tag| %>
-          <li class="tag-list-token-new-line pull-left"><%= tag %></li>
+          <li class="tag-list-token-new-line pull-left"><%= link_to tag, problems_path(tags: tag) %></li>
           <li class="tag-count"> x <%= Problem.where(:tags.in => [tag]).count %></li>
           <li class="clearfix"></li>
         <% end %>

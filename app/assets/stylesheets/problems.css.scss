@@ -82,13 +82,15 @@ li.tag-list-token-new-line {
 
 ul.problem-sort-links {
   margin: 10px 0 10px 0;
-  padding-left: 30px;
+  padding-left: 10px;
   padding-right: 10px;
 }
 
 .problem-sort-links > li > a {
   line-height: 1.75em;
   font-weight: bold;
+  padding: 5px;
+  margin: 5px 5px 0 5px;
 }
 
 .all-problems-title {
@@ -105,6 +107,7 @@ ul.problem-sort-links {
   margin: 0 10px 0 0;
   text-align: center;
   font-size: 0.8em;
+  height: 100px;
 }
 
 .grid-problem-views {

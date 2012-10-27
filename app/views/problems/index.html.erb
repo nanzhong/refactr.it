@@ -49,7 +49,7 @@
         </span>
         <ul class="tag-list">
           <% problem.tags.each do |tag| %>
-            <li class="tag-list-token"><%= tag %></li>
+            <li class="tag-list-token"><%= link_to tag, problems_path(tags: tag) %></li>
           <% end %>
         </ul>
         <div class="clearfix"></div>

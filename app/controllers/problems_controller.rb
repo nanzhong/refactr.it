@@ -4,6 +4,7 @@ class ProblemsController < ApplicationController
 
   # GET /problems
   def index
+    @tags = (params[:tags] || "").split(',')
     @page = (params[:page] || 1).to_i
 
     @sort = case (params[:order] || "").downcase
@@ -25,11 +26,16 @@ class ProblemsController < ApplicationController
           end
 
           per_page = Kaminari.config.default_per_page
-          search.from (@page - 1) * per_page
-          search.size per_page
+          search.from((@page - 1) * per_page)
+          search.size(per_page)
         end
       else
-        @problems = Problem.desc(@sort).page(@page)
+        @problems =
+          if @tags.blank?
+            Problem.desc(@sort).page(@page)
+          else
+            Problem.in(tags: @tags).desc(@sort).page(@page)
+          end
       end
 
     respond_to do |format|
