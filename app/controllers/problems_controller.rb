@@ -25,6 +25,10 @@ class ProblemsController < ApplicationController
             sort.by @sort, 'desc'
           end
 
+          unless @tags.empty?
+            search.filter(:terms, tags: @tags)
+          end
+
           per_page = Kaminari.config.default_per_page
           search.from((@page - 1) * per_page)
           search.size(per_page)
