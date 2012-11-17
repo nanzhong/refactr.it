@@ -126,8 +126,8 @@ ul.problem-sort-links {
 }
 
 // new/edit
-.problem-body {
-  height: 200px;
+#problem-body {
+  height: 500px;
 }
 
 .new-problem-sidebar {
@@ -156,7 +156,7 @@ ul.problem-sort-links {
   font-size: 0.9em;
 }
 
-.problem-content {
+#problem-content {
   border-bottom: 1px dotted #eee;
   margin-bottom: 10px;
 }
@@ -183,11 +183,16 @@ ul.problem-sort-links {
   line-height: 3em;
   font-size: 1.8em;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .problem-rating {
   padding: 5px;
   font-size: 1.5em;
+}
+
+.problem-rating-meter {
+  margin: 0;
 }
 
 .problem-stats {
@@ -197,6 +202,14 @@ ul.problem-sort-links {
 .problem-stats > p {
   font-size: 0.9em;
   margin: 0;
+}
+
+.problem-language {
+  margin-bottom: 10px;
+}
+
+.problem-language > h5 {
+  display: inline;
 }
 
 .add-comment {
@@ -262,4 +275,8 @@ ul.problem-sort-links {
 .solution-content {
   padding: 5px 0 5px 0;
   border-bottom: 1px dotted #ddd;
+}
+
+#solution-body {
+  height: 300px;
 }

@@ -42,16 +42,9 @@
 
         <h4>
           <%= link_to problem.title, problem %>
-          <% unless problem.source.blank? %>
-            <%= link_to_source problem, icon: true %>
-          <% end %>
         </h4>
         <span class="grid-problem-info">
-          <% if problem.source.blank? %>
-            Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong>
-          <% else %>
-            Imported from: <%= link_to_source problem %>
-          <% end %>
+          Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong>
           <span class="muted"> <%= time_ago_in_words(problem.created_at) %> ago</span>
         </span>
         <ul class="tag-list">

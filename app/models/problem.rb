@@ -1,4 +1,3 @@
-require 'redcarpet'
 require 'tire'
 require 'json'
 
@@ -6,29 +5,34 @@ class Problem
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  LANGUAGES = [
+    :c_cpp,      :clojure,    :coffee,     :csharp,     :dart,       :golang,
+    :groovy,     :java,       :javascript, :jsp,        :list,       :lua,
+    :objectivec, :ocaml,      :perl,       :php,        :python,     :ruby,
+    :scala,      :sh,         :sql,        :tcl,        :text,       :typescript
+  ]
+
   TAGS = ['ruby', 'python', 'c', 'c++', 'obj-c', 'java', 'javascript']
 
   field :title,           type: String
   field :body,            type: String,  default: ""
+  field :language,        type: Symbol
   field :tags,            type: Array,   default: []
   field :solutions_count, type: Integer, default: 0
   field :up_votes,        type: Integer, default: 0
   field :down_votes,      type: Integer, default: 0
   field :rating,          type: Integer, default: 0
   field :views,           type: Integer, default: 0
-  field :parsed,          type: Boolean, default: false
-  field :source,          type: Symbol
-  field :source_id,       type: String
 
   belongs_to :user, index: true
   has_many :solutions, dependent: :destroy
   embeds_many :comments
 
+  index({ language: 1 })
   index({ tags: 1 })
-  index({ source: 1, source_id: 1 }, { unique: true })
   index({ created_at: 1 })
 
-  validates_presence_of :title, :body, :tags
+  validates_presence_of :title, :body, :language, :tags
 
   before_save :cache_solutions_count
 
@@ -44,8 +48,6 @@ class Problem
     indexes :solutions_count, index: :not_analyzed
     indexes :comments,        index: :not_analyzed
     indexes :created_at,      type: 'date'
-    indexes :source,          index: :not_analyzed
-    indexes :source_id,       index: :not_analyzed
   end
 
   def tags_str=(tags_str)
@@ -62,17 +64,6 @@ class Problem
 
   def to_indexed_json
     self.to_json
-  end
-
-  def body_html
-    @markdown = Redcarpet::Markdown.new(PrettyCode, autolink: true, space_after_headers: true)
-    @markdown.render(self.body).html_safe
-  end
-
-  class PrettyCode < Redcarpet::Render::HTML
-    def block_code(code, language)
-      "<pre class=\"prettyprint linenums\"><code>" + code.gsub('<', '&lt;').gsub('>', '&gt;') + "</code></pre>"
-    end
   end
 
   private

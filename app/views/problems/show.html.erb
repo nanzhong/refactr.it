@@ -1,9 +1,19 @@
 <h1 class="problem-title"><%= @problem.title %></h1>
 <div class="row">
   <div class="span9">
-    <div class="problem-content">
-      <%= @problem.parsed ? @problem.body.html_safe : @problem.body_html %>
-    </div>
+    <div id="problem-content" class="code-editor"><%= @problem.body %></div>
+
+    <script type="text/javascript">
+      var editor = ace.edit("problem-content");
+      editor.setReadOnly(true);
+      editor.setHighlightActiveLine(false);
+      editor.setTheme("ace/theme/clouds");
+      editor.setShowPrintMargin(false);
+      editor.session.setMode("ace/mode/<%= @problem.language %>");
+      var height = editor.session.getDocument().getLength() * editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
+      $('#problem-content').height(height);
+      editor.resize();
+    </script>
 
     <div class="problem-actions pull-left">
       <a href="#">share</a> | 
@@ -50,16 +60,21 @@
   <div class="span3">
     <div class="problem-info">
       <h5>Problem Info</h5>
-        <div class="problem-votes">
-          <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(@problem), remote: true, method: :put %>
-          <span id="rating-<%= @problem.id %>" class="problem-rating"><%= @problem.rating %></span>
-          <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(@problem), remote: true, method: :put %>
-          <div class="progress">
-            <% up_percent = @problem.up_votes.to_f / (@problem.down_votes + @problem.up_votes) * 100 %>
-            <div class="bar bar-success" style="width: <%= up_percent %>%;"></div>
-            <div class="bar bar-danger" style="width: <%= 100 - up_percent %>%;"></div>
-          </div>
+      <div class="problem-votes">
+        <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_path(@problem), remote: true, method: :put %>
+        <span id="rating-<%= @problem.id %>" class="problem-rating"><%= @problem.rating %></span>
+        <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_path(@problem), remote: true, method: :put %>
+        <div class="problem-rating-meter progress">
+          <% up_percent = @problem.up_votes.to_f / (@problem.down_votes + @problem.up_votes) * 100 %>
+          <div class="bar bar-success" style="width: <%= up_percent %>%;"></div>
+          <div class="bar bar-danger" style="width: <%= 100 - up_percent %>%;"></div>
         </div>
+      </div>
+
+      <div class="problem-language">
+        <h5>Language</h5>
+        <%= link_to @problem.language, problems_path(q: "lang:#{@problem.language}") %>
+      </div>
 
       <ul class="tag-list-new-line">
         <% @problem.tags.each do |tag| %>

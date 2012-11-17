@@ -62,8 +62,3 @@ RefactrIt::Application.configure do
   config.active_support.deprecation = :notify
 
 end
-
-require 'tire'
-Tire.configure do
-  url "http://r2e4djm5:r5b2u7q0jpnhbgul@smoke-9111597.us-east-1.bonsai.io"
-end

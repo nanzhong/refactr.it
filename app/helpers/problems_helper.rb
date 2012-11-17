@@ -1,15 +1,21 @@
 module ProblemsHelper
 
-  def link_to_source(problem, options = {})
-    return '' if problem.source.blank?
-
-    options = { icon: false }.merge(options)
-
-    case problem.source
-    when :stack_overflow
-      link_to(options[:icon] ? image_tag('so-icon.png', width: '16px', style: 'vertical-align:baseline;') : 'Stack Overflow', "http://stackoverflow.com/q/#{problem.source_id}")
-    else
-      nil
+  def language_selector(selected = :text)
+    lang_select = Problem::LANGUAGES.map do |lang|
+      case lang
+      when :c_cpp
+        [ 'c/c++', lang ]
+      when :csharp
+        [ 'c#', lang ]
+      when :golang
+        [ 'go', lang ]
+      when :objectivec
+        [ 'obj-c', lang ]
+      when :text
+        [ 'plaintext', lang ]
+      else
+        [ lang.to_s, lang ]
+      end
     end
   end
 

@@ -1,18 +1,20 @@
 <h1 class="solutions-title"><%= title %></h1>
 <%= form_for [problem, solution] do |f| %>
+  <div class="bordered-unit" style="padding:3px;margin-bottom:15px;">
+    <div id="solution-body" class="code-editor"></div>
+  </div>
   <%= f.text_area :body, class: 'solution-body', id: "solution-body-#{solution.id}" %>
   <script type="text/javascript" >
-    $('#solution-body-<%= solution.id %>').markItUp(mySettings);
-  </script>
-  <div id="solution-preview-<%= solution.id %>" class="solution-preview"></div>
-  <%= f.submit "Submit Solution", class: 'btn btn-primary btn-large' %>
-  <span id="preview-solution-button-<%= solution.id %>" class="btn btn-large">Preview</span>
-  <script type="text/javascript">
-    var converter = new Showdown.converter();
-
-    $('#preview-solution-button-<%= solution.id %>').click(function() {
-      $('#solution-preview-<%= solution.id %>').replaceWith('<div id="solution-preview-<%= solution.id %>" class="solution-preview bordered-unit">' + converter.makeHtml($('#solution-body-<%= solution.id %>').val()) + '</div>');
-      prettyPrint();
+    var textarea = $('#solution-body-<%= solution.id %>').hide();
+    var editor = ace.edit("solution-body");
+    editor.setTheme("ace/theme/clouds");
+    editor.setShowPrintMargin(false);
+    editor.setValue(textarea.val());
+    editor.session.setMode("ace/mode/<%= problem.language %>");
+    editor.on('change', function(){
+      textarea.val(editor.session.getValue());
     });
+
   </script>
+  <%= f.submit "Submit Solution", class: 'btn btn-primary btn-large' %>
 <% end %>

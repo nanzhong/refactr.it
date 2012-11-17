@@ -11,7 +11,19 @@
         </div>
 
         <div class="span8 solution-content">
-          <%= solution.body_html %>
+          <div id="solution-content-<%= solution.id %>" class="code-editor"><%= solution.body %></div>
+
+          <script type="text/javascript">
+            var editor = ace.edit("solution-content-<%= solution.id %>");
+            editor.setReadOnly(true);
+            editor.setHighlightActiveLine(false);
+            editor.setTheme("ace/theme/clouds");
+            editor.setShowPrintMargin(false);
+            editor.session.setMode("ace/mode/<%= solution.problem.language %>");
+            var height = editor.session.getDocument().getLength() * editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
+            $('#solution-content-<%= solution.id %>').height(height);
+            editor.resize();
+          </script>
 
           <div class="solution-actions pull-left">
             <a href="#">share</a> | 

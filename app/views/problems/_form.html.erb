@@ -1,29 +1,66 @@
 <%= form_for problem do |f| %>
   <%= f.text_field :title, class: 'span8', placeholder: "What is your refactoring problem about?" %>
+  <%= f.select :language, language_selector, selected: :text %>
   <%= f.text_area :body, class: 'problem-body span8' %>
-  <script type="text/javascript" >
-    $("#problem_body").markItUp(mySettings);
-  </script>
-  <div id="problem-preview"></div>
+  <div class="bordered-unit" style="padding:3px;">
+    <div id="problem-body" class="code-editor"></div>
+  </div>
+  <h4>Tags <small>tag your problem to make it easier to find</small></h4>
   <%= f.text_field :tags_str %>
+
   <script type="text/javascript">
+    $('#problem_title').popover({
+      trigger: 'focus',
+      title: 'Your Problem Title',
+      content: 'Try to use a concise and clear title, this way you are more likely to be noticed!',
+      placement: function(tip, ele) {
+        var width = $(window).width();
+        return width >= 768 ? 'right' :'bottom';
+      }
+    });
+
+    $('#problem-body').popover({
+      trigger: 'manual',
+      title: 'The Good Stuff',
+      content: "This is were your to-be refactored code should go.<br><br>Documenting any unclear or not so obvious parts is a great idea, and will definitely help make it easier to understand and refactor.<br><br>Be sure to specify the language of your code to enable syntax highlighting!",
+      placement: function(tip, ele) {
+        var width = $(window).width();
+        return width >= 768 ? 'right' :'bottom';
+      }
+    });
+
+    var textarea = $('#problem_body').hide();
+    var editor = ace.edit("problem-body");
+    editor.setTheme("ace/theme/clouds");
+    editor.setShowPrintMargin(false);
+    editor.setValue(textarea.val());
+    editor.on('change', function(){
+      textarea.val(editor.session.getValue());
+    });
+    editor.on('focus', function(){
+      $('#problem-body').popover('show');
+    });
+
+    editor.on('blur', function(){
+      $('#problem-body').popover('hide');
+    });
+
+    $('#problem_language').change(function() {
+      editor.session.setMode("ace/mode/" + $('#problem_language').val());
+    });
+
     $('#problem_tags_str').tokenInput(
       '<%= tags_problems_path %>',
       { hintText: "Start typing in a tag...",
         theme: "bootstrap",
         tokenLimit: 5,
         preventDuplicates: true,
-        prePopulate: <%= problem.tags.empty? ? 'null' : problem.tags_prepopulate %> });
+        allowFreeTagging: true,
+        prePopulate: <%= problem.tags.empty? ? 'null' : problem.tags_prepopulate %>
+      });
+
+    $('#problem_title').focus();
   </script>
 
   <%= f.submit "Submit Problem", class: 'btn btn-primary btn-large' %>
-  <span id="preview-problem-button" class="btn btn-large">Preview</span>
-  <script type="text/javascript">
-    var converter = new Showdown.converter();
-
-    $('#preview-problem-button').click(function() {
-      $('#problem-preview').replaceWith('<div id="problem-preview" class="bordered-unit">' + converter.makeHtml($('#problem_body').val()) + '</div>');
-      prettyPrint();
-    });
-  </script>
 <% end %>
