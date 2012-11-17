@@ -45,6 +45,7 @@ class Problem
     indexes :body
     indexes :tags
     indexes :rating,          index: :not_analyzed
+    indexes :views,           index: :not_analyzed
     indexes :solutions_count, index: :not_analyzed
     indexes :comments,        index: :not_analyzed
     indexes :created_at,      type: 'date'
