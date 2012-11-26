@@ -1,6 +1,6 @@
 <%= form_for problem do |f| %>
   <%= f.text_field :title, class: 'span8', placeholder: "What is your refactoring problem about?" %>
-  <%= f.select :language, language_selector, selected: :text %>
+  <%= f.select :language, language_selector, selected: (@problem.language.blank? ? :text : @problem.language) %>
   <%= f.text_area :body, class: 'problem-body span8' %>
   <div class="bordered-unit" style="padding:3px;">
     <div id="problem-body" class="code-editor"></div>
@@ -13,6 +13,16 @@
       trigger: 'focus',
       title: 'Your Problem Title',
       content: 'Try to use a concise and clear title, this way you are more likely to be noticed!',
+      placement: function(tip, ele) {
+        var width = $(window).width();
+        return width >= 768 ? 'right' :'bottom';
+      }
+    });
+
+    $('#problem_language').popover({
+      trigger: 'focus',
+      title: 'Programming Language',
+      content: 'Specify a programming language to enable syntax hightlighting and language specific features!',
       placement: function(tip, ele) {
         var width = $(window).width();
         return width >= 768 ? 'right' :'bottom';
@@ -61,6 +71,13 @@
 
     $('#problem_title').focus();
   </script>
+
+  <% unless user_signed_in? %>
+    <div class="sign-in-warning">
+      <span class="label label-warning">You are not signed in!</span>
+      <span class="muted">To receive alerts and updates as well as participating in user rankings you should sign in first.</span>
+    </div>
+  <% end %>
 
   <%= f.submit "Submit Problem", class: 'btn btn-primary btn-large' %>
 <% end %>
