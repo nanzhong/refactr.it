@@ -1,1 +1,85 @@
-<h1>root</h1>
+<div class="hero-unit header">
+  <h1>refactr.it</h1>
+  <p>You have the goal of beautiful code, we have the tools to help you get there.</p>
+
+  <p>To better code!</p>
+
+  <%= link_to "Submit a Problem!", new_problem_path, class: "btn btn-primary btn-large" %>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <div class="problems-box">
+      <h2>Newest Problems</h2>
+      <% @problems.each do |problem| %>
+        <div class="row"><!-- problem row start -->
+          <div class="span6">
+            <div id="<%= problem.id %>" class="grid-problem-content">
+              <div class="grid-problem-stats pull-left">
+                <span id="rating-<%= problem.id %>" class="grid-problem-count"><%= problem.rating %></span><br>rating<br>
+                <span class="grid-problem-count"><%= problem.solutions_count %></span><br>solutions
+              </div>
+
+              <div class="grid-problem-views pull-right">
+                <span class="grid-problem-count"><%= problem.views %></span><br>views
+              </div>
+
+              <h4>
+                <%= link_to problem.title, problem %>
+              </h4>
+              <span class="grid-problem-info">
+                Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong>
+                <span class="muted"> <%= time_ago_in_words(problem.created_at) %> ago</span>
+              </span>
+              <ul class="tag-list">
+                <% problem.tags.each do |tag| %>
+                  <li class="tag-list-token"><%= link_to tag, problems_path(tags: tag) %></li>
+                <% end %>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div><!-- problem row end -->
+      <% end %>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="users-box">
+      <h2>Top Users</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Score</th>
+            <th>Problems</th>
+            <th>Solutions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each_with_index do |user, i| %>
+            <tr>
+              <td><%= i + 1 %></td>
+              <td><%= link_to user.display_name, user_path(user) %></td>
+              <td><%= user.score %></td>
+              <td><%= user.problems_count %></td>
+              <td><%= user.solutions_count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="row">
+  <div class="hero-unit span4">
+    <h1>Refactoring</h1>
+    <p>
+    is about improving the design of existing code. It is the process of changing a software system in such a way that it does not alter the external behavior of the code, yet improves its internal structure.<br>
+    <span class="muted pull-right">- Martin Fowler</span>
+    </p>
+  </div>
+  -->
+</div>

@@ -43,16 +43,16 @@
   </head>
   <body>
 
-    <div class="navbar">
+    <div class="navbar navbar-static-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+          <button type="button" class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
+          </button>
           <%= link_to 'refactr.it', root_path, class: 'brand' %>
-          <div class="container-fluid nav-collapse">
+          <div class="nav-collapse collapse">
             <ul class="nav">
               <li<%= params[:controller] == 'problems' && params[:action] == 'index' ? ' class="active"'.html_safe : '' %>><%= link_to "Problems", problems_path %></li>
               <li<%= params[:controller] == 'problems' && params[:action] == 'new' ? ' class="active"'.html_safe : '' %>><%= link_to "Submit a Problem", new_problem_path %></li>
@@ -70,7 +70,7 @@
               </li>
               <li class="divider-vertical"></li>
               <% if user_signed_in? %>
-                <li><%= link_to current_user.nickname, current_user %></li>
+                <li><%= link_to current_user.nickname, current_user %>
                 <li class="divider-vertical"></li>
                 <li><%= link_to "Sign Out", sign_out_path  %></li>
               <% else %>
@@ -94,7 +94,7 @@
     <footer class="footer">
     <div class="container">
       <p class="pull-right"><a href="#">Back to top <i class="icon-arrow-up"></i></a></p>
-      <p>Built and design by Nan Zhong.</p>
+      <p>Built and designed by Nan Zhong.</p>
       <p>Copyright &copy; refactr.it 2012. User contributions licensed under cc-wiki with attribution required.</p>
       <ul class="footer-links">
         <li><a href="#">nine27.com</a></li>

@@ -1,3 +1,24 @@
 // Place all the styles related to the root controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.header {
+  padding: 40px;
+
+  .text-blue {
+    color: #3A87AD;
+  }
+
+  .text-green {
+    color: #468847;
+  }
+}
+
+.problems-box {
+  padding-left: 40px;
+  padding-right: 20px;
+}
+
+.users-box {
+  padding-left: 20px;
+  padding-right: 40px;
+}
