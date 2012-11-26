@@ -3,10 +3,16 @@
     <div id="solution-<%= solution.id %>" class="solution-row">
       <div class="row">
         <div class="span1">
-          <div class="solution-problem-votes">
-            <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %><br>
-            <span id="solution-rating-<%= solution.id %>" class="solution-problem-rating"><%= solution.rating %></span><br>
-            <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %>
+          <div class="solution-problem-votes" id="solution-votes-<%= solution.id %>">
+            <% if @voted_solutions[solution.id] == false %>
+              <%= link_to '<i class="icon-thumbs-up icon-large rating-vote-icon"></i>'.html_safe, up_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %><br>
+              <span id="solution-rating-<%= solution.id %>" class="solution-problem-rating"><%= solution.rating %></span><br>
+              <%= link_to '<i class="icon-thumbs-down icon-large rating-vote-icon"></i>'.html_safe, down_vote_problem_solution_path(solution.problem, solution), remote: true, method: :put %>
+            <% else %>
+              <i class="icon-thumbs-up icon-large rating-vote-icon<%= @voted_solutions[solution.id] == 'up_vote' ? ' voted' : '' %>"></i><br>
+              <span id="solution-rating-<%= solution.id %>" class="solution-problem-rating"><%= solution.rating %></span><br>
+              <i class="icon-thumbs-down icon-large rating-vote-icon<%= @voted_solutions[solution.id] == 'down_vote' ? ' voted' : '' %>"></i>
+            <% end %>
           </div>
         </div>
 

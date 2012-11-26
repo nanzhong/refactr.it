@@ -132,6 +132,7 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     redcarpet (2.2.2)
+    redis (3.0.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     sass (3.2.1)
@@ -183,6 +184,7 @@ DEPENDENCIES
   omniauth-github!
   rails (= 3.2.8)
   redcarpet
+  redis
   sass-rails (~> 3.2.3)
   tire
   twitter-bootstrap-rails

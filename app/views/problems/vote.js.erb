@@ -1,1 +1,17 @@
 $('#rating-<%= @problem.id %>').html('<%= @problem.rating %>');
+$('.problem-votes > a').each(function(index, value) {
+  var icon = $(this).children().first();
+
+  <% if @vote == Cache::UP_VOTE %>
+  if (icon.hasClass("icon-thumbs-up")) {
+  <% else %>
+  if (icon.hasClass("icon-thumbs-down")) {
+  <% end %>
+    icon.addClass('voted');
+  }
+
+  $(this).replaceWith(icon);
+});
+<%= up_percent = @problem.up_votes.to_f / (@problem.down_votes + @problem.up_votes) * 100 %>
+$('.problem-votes > .problem-rating-meter > .bar-success').css('width', '<%= up_percent %>%');
+$('.problem-votes > .problem-rating-meter > .bar-danger').css('width', '<%= 100 - up_percent %>%');

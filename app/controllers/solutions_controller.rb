@@ -57,6 +57,15 @@ class SolutionsController < ApplicationController
   def up_vote
     @solution.inc(:up_votes, 1)
     @solution.inc(:rating, 1)
+
+    if user_signed_in?
+      Cache.vote_on_solution(current_user.id, @solution, Cache::UP_VOTE)
+    else
+      Cache.vote_on_solution(request.remote_ip, @solution, Cache::UP_VOTE)
+    end
+
+    @vote = Cache::UP_VOTE
+
     render 'vote'
   end
 
@@ -64,6 +73,15 @@ class SolutionsController < ApplicationController
   def down_vote
     @solution.inc(:down_votes, 1)
     @solution.inc(:rating, -1)
+
+    if user_signed_in?
+      Cache.vote_on_solution(current_user.id, @solution, Cache::DOWN_VOTE)
+    else
+      Cache.vote_on_solution(request.remote_ip, @solution, Cache::DOWN_VOTE)
+    end
+
+    @vote = Cache::DOWN_VOTE
+
     render 'vote'
   end
 

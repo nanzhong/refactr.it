@@ -283,3 +283,16 @@ ul.problem-sort-links {
 #solution-body {
   height: 300px;
 }
+
+.rating-vote-icon {
+  color: #CCC;
+}
+
+a > i.rating-vote-icon:hover {
+  color: #08C;
+  text-decoration: none;
+}
+
+.voted {
+  color: #08C;
+}

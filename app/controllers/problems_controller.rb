@@ -52,6 +52,16 @@ class ProblemsController < ApplicationController
   def show
     @problem.inc(:views, 1)
 
+    user = user_signed_in? ? current_user.ip : request.remote_ip
+
+    @voted = Cache.voted_on_problem?(user, @problem)
+    @voted_solutions = {}
+    @problem.solutions.each do |solution|
+      unless solution.id.blank?
+        @voted_solutions[solution.id] = Cache.voted_on_solution?(user, solution)
+      end
+    end
+
     respond_to do |format|
       format.json { render json: @problem }
       format.html
@@ -131,6 +141,15 @@ class ProblemsController < ApplicationController
   def up_vote
     @problem.inc(:up_votes, 1)
     @problem.inc(:rating, 1)
+
+    if user_signed_in?
+      Cache.vote_on_problem(current_user.id, @problem, Cache::UP_VOTE)
+    else
+      Cache.vote_on_problem(request.remote_ip, @problem, Cache::UP_VOTE)
+    end
+
+    @vote = Cache::UP_VOTE
+
     render 'vote'
   end
 
@@ -138,6 +157,15 @@ class ProblemsController < ApplicationController
   def down_vote
     @problem.inc(:down_votes, 1)
     @problem.inc(:rating, -1)
+
+    if user_signed_in?
+      Cache.vote_on_problem(current_user.id, @problem, Cache::DOWN_VOTE)
+    else
+      Cache.vote_on_problem(request.remote_ip, @problem, Cache::DOWN_VOTE)
+    end
+
+    @vote = Cache::DOWN_VOTE
+
     render 'vote'
   end
 

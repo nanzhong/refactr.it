@@ -1,1 +1,14 @@
 $('#solution-rating-<%= @solution.id %>').html('<%= @solution.rating %>');
+$('#solution-votes-<%= @solution.id %> > a').each(function(index, value) {
+  var icon = $(this).children().first();
+
+  <% if @vote == Cache::UP_VOTE %>
+  if (icon.hasClass("icon-thumbs-up")) {
+  <% else %>
+  if (icon.hasClass("icon-thumbs-down")) {
+  <% end %>
+    icon.addClass('voted');
+  }
+
+  $(this).replaceWith(icon);
+});
