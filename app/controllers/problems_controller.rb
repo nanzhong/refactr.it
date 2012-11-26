@@ -52,7 +52,7 @@ class ProblemsController < ApplicationController
   def show
     @problem.inc(:views, 1)
 
-    user = user_signed_in? ? current_user.ip : request.remote_ip
+    user = user_signed_in? ? current_user.id : request.remote_ip
 
     @voted = Cache.voted_on_problem?(user, @problem)
     @voted_solutions = {}
