@@ -12,4 +12,11 @@ class Solution
   embeds_many :comments
 
   validates_presence_of :body, :problem
+
+  after_save :save_user
+
+  private
+  def save_user
+    self.user.save
+  end
 end

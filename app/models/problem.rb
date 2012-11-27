@@ -35,6 +35,7 @@ class Problem
   validates_presence_of :title, :body, :language, :tags
 
   before_save :cache_solutions_count
+  after_save :save_user
 
   include Tire::Model::Search
   include Tire::Model::Callbacks
@@ -70,5 +71,9 @@ class Problem
   private
   def cache_solutions_count
     self.solutions_count = self.solutions.count
+  end
+
+  def save_user
+    self.user.save
   end
 end
