@@ -44,6 +44,7 @@
     editor.setTheme("ace/theme/clouds");
     editor.setShowPrintMargin(false);
     editor.setValue(textarea.val());
+    editor.session.setMode("ace/mode/" + $('#problem_language').val());
     editor.on('change', function(){
       textarea.val(editor.session.getValue());
     });
