@@ -71,13 +71,13 @@ class Problem
   def up_vote
     self.inc(:up_votes, 1)
     self.inc(:rating, 1)
-    self.user.save
+    self.user.save unless self.user.nil?
   end
 
   def down_vote
     self.inc(:down_votes, 1)
     self.inc(:rating, -1)
-    self.user.save
+    self.user.save unless self.user.nil?
   end
 
   private
