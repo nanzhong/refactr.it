@@ -15,6 +15,18 @@ class Solution
 
   after_save :save_user
 
+  def up_vote
+    self.inc(:up_votes, 1)
+    self.inc(:rating, 1)
+    self.user.save
+  end
+
+  def down_vote
+    self.inc(:down_votes, 1)
+    self.inc(:rating, -1)
+    self.user.save
+  end
+
   private
   def save_user
     self.user.save

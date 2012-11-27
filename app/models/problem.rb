@@ -68,6 +68,18 @@ class Problem
     self.to_json
   end
 
+  def up_vote
+    self.inc(:up_votes, 1)
+    self.inc(:rating, 1)
+    self.user.save
+  end
+
+  def down_vote
+    self.inc(:down_votes, 1)
+    self.inc(:rating, -1)
+    self.user.save
+  end
+
   private
   def cache_solutions_count
     self.solutions_count = self.solutions.count

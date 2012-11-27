@@ -55,8 +55,7 @@ class SolutionsController < ApplicationController
 
   # PUT /problems/:problem_id/solution/:id/up_vote
   def up_vote
-    @solution.inc(:up_votes, 1)
-    @solution.inc(:rating, 1)
+    @solution.up_vote
 
     if user_signed_in?
       Cache.vote_on_solution(current_user.id, @solution, Cache::UP_VOTE)
@@ -71,8 +70,7 @@ class SolutionsController < ApplicationController
 
   # PUT /problems/:problem_id/solution/:id/down_vote
   def down_vote
-    @solution.inc(:down_votes, 1)
-    @solution.inc(:rating, -1)
+    @solution.down_vote
 
     if user_signed_in?
       Cache.vote_on_solution(current_user.id, @solution, Cache::DOWN_VOTE)
