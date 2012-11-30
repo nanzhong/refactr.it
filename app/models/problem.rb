@@ -36,6 +36,7 @@ class Problem
 
   before_save :cache_solutions_count
   after_save :save_user
+  after_destroy :save_user
 
   include Tire::Model::Search
   include Tire::Model::Callbacks

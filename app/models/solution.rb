@@ -14,6 +14,7 @@ class Solution
   validates_presence_of :body, :problem
 
   after_save :save_user
+  after_destroy :save_user
 
   def up_vote
     self.inc(:up_votes, 1)
