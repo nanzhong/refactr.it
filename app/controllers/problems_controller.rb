@@ -4,6 +4,11 @@ class ProblemsController < ApplicationController
 
   # GET /problems
   def index
+    if params[:q] && params[:q].blank?
+      flash.now[:error] = "Sorry, you can not search for an empty string. :("
+    end
+
+    @query = params[:q]
     @tags = (params[:tags] || "").split(',')
     @page = (params[:page] || 1).to_i
 
@@ -15,7 +20,7 @@ class ProblemsController < ApplicationController
     end
 
     @problems =
-      if params[:q]
+      unless params[:q].blank?
         Problem.search do |search|
           search.query do |query|
             query.string params[:q]

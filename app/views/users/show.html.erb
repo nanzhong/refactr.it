@@ -5,7 +5,7 @@
 
   <div class="span9">
     <div class="user-name-info">
-      <h1 class="users-title"><%= @user.name %> <span class="muted">(<%= @user.score %>)</span></h1>
+      <h1 class="users-title"><%= @user.name.blank? ? @user.nickname : @user.name %> <span class="muted">(<%= @user.score %>)</span></h1>
       <h2 class="users-subtitle"><%= @user.nickname %></h2>
     </div>
     <div>
