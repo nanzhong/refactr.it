@@ -35,6 +35,10 @@ class ProblemsController < ApplicationController
             search.filter(:terms, tags: @tags)
           end
 
+          unless @language.nil?
+            search.filter(:term, language: @language)
+          end
+
           per_page = Kaminari.config.default_per_page
           search.from((@page - 1) * per_page)
           search.size(per_page)
@@ -42,9 +46,17 @@ class ProblemsController < ApplicationController
       else
         @problems =
           if @tags.blank?
-            Problem.desc(@sort).page(@page)
+            unless @language.nil?
+              Problem.where(language: @language).desc(@sort).page(@page)
+            else
+              Problem.desc(@sort).page(@page)
+            end
           else
-            Problem.in(tags: @tags).desc(@sort).page(@page)
+            unless @language.nil?
+              Problem.in(tags: @tags).where(language: @language).desc(@sort).page(@page)
+            else
+              Problem.in(tags: @tags).desc(@sort).page(@page)
+            end
           end
       end
 

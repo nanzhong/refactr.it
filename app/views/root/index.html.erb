@@ -22,13 +22,14 @@
             <span class="grid-problem-count"><%= problem.views %></span><br>views
           </div>
 
-          <h4>
+          <h4 class="problem-box-title">
             <%= link_to problem.title, problem %>
           </h4>
-          <span class="grid-problem-info">
+          <div class="grid-problem-info">
+            <strong>Language: <%= link_to problem.language, problems_path(lang: problem.language) %></strong><br>
             Posted by <% if problem.user %><strong><%= link_to problem.user.display_name, user_path(problem.user)  %><% else %>Anonymous<% end %></strong>
             <span class="muted"> <%= time_ago_in_words(problem.created_at) %> ago</span>
-          </span>
+          </div>
           <ul class="tag-list">
             <% problem.tags.each do |tag| %>
               <li class="tag-list-token"><%= link_to tag, problems_path(tags: tag) %></li>
