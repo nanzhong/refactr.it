@@ -236,10 +236,7 @@ $.TokenList = function (input, url_or_data, settings) {
     var input_val;
 
     // Create a new text input an attach keyup events
-    var input_box = $("<input type=\"text\"  autocomplete=\"off\">")
-        .css({
-            outline: "none"
-        })
+    var input_box = $("<input type=\"text\"  autocomplete=\"off\" class=\"token-input-box\">")
         .attr("id", $(input).data("settings").idPrefix + input.id)
         .focus(function () {
             if ($(input).data("settings").disabled) {

@@ -46,6 +46,7 @@ class Problem
     indexes :title
     indexes :body
     indexes :tags
+    indexes :language
     indexes :rating,          index: :not_analyzed
     indexes :views,           index: :not_analyzed
     indexes :solutions_count, index: :not_analyzed

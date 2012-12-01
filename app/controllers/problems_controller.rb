@@ -9,6 +9,7 @@ class ProblemsController < ApplicationController
     end
 
     @query = params[:q]
+    @language = params[:lang]
     @tags = (params[:tags] || "").split(',')
     @page = (params[:page] || 1).to_i
 
@@ -20,10 +21,10 @@ class ProblemsController < ApplicationController
     end
 
     @problems =
-      unless params[:q].blank?
+      unless @query.blank?
         Problem.search do |search|
           search.query do |query|
-            query.string params[:q]
+            query.string @query
           end
 
           search.sort do |sort|
