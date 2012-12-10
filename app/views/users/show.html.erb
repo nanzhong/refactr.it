@@ -1,3 +1,5 @@
+<% title(@user.name.blank? ? @user.nickname : @user.name) %>
+
 <div class="row">
   <div class="span3">
     <%= image_tag @user.image, class: 'img-polaroid' %>
