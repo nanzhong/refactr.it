@@ -88,6 +88,6 @@ class Problem
   end
 
   def save_user
-    self.user.save
+    self.user.save unless self.user.nil?
   end
 end
