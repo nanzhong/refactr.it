@@ -7,7 +7,7 @@
   <script type="text/javascript" >
     var textarea = $('#solution-body-<%= solution.id %>').hide();
     var editor = ace.edit("solution-body");
-    editor.setTheme("ace/theme/clouds");
+    editor.setTheme("ace/theme/xcode");
     editor.setShowPrintMargin(false);
     editor.setValue(textarea.val());
     editor.session.setMode("ace/mode/<%= problem.language %>");

@@ -9,7 +9,7 @@
       var editor = ace.edit("problem-content");
       editor.setReadOnly(true);
       editor.setHighlightActiveLine(false);
-      editor.setTheme("ace/theme/clouds");
+      editor.setTheme("ace/theme/xcode");
       editor.setShowPrintMargin(false);
       editor.session.setMode("ace/mode/<%= @problem.language %>");
       var height = editor.session.getDocument().getLength() * editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
