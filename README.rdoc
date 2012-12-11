@@ -1,5 +1,8 @@
 == refactr.it
 refactr.it is a simple application that allows programmers to submit their code and have the public comment on and provide feedback as to ways that it can be improved. The goal is to create a simple to use system that programmers of all levels can leverage to improve their code and skills.
 
+== Contributing
+If anyone is interesting in contributing, please feel free to fork away and submit pull requests.
+
 == License
 refactr.it is released under the MIT License.
