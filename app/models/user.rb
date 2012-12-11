@@ -15,12 +15,12 @@ class User
   has_many :solutions
 
   index({ uid: 1 }, { unique: true })
-  index({ email: 1 }, { unique: true })
+  index({ email: 1 })
   index({ score: 1 })
   index({ problems_count: 1 })
   index({ solutions_count: 1 })
 
-  validates_presence_of :uid, :email, :score
+  validates_presence_of :uid, :score
   validates_uniqueness_of :uid
 
   before_save :calculate_score
