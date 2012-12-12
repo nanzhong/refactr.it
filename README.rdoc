@@ -2,7 +2,7 @@
 http://refactr.it is a simple application that allows programmers to submit their code and have the public comment on and provide feedback as to ways that it can be improved. The goal is to create a simple to use system that programmers of all levels can leverage to improve their code and skills.
 
 == Contributing
-If anyone is interesting in contributing, please feel free to fork away and submit pull requests. If you're interested, the following is a list of todo items that have been suggeste by users and things I still want to add.
+If anyone is interesting in contributing, please feel free to fork away and submit pull requests. If you're interested, the following is a list of todo items that have been suggested by users and things I still want to add.
 
 * Contribute problems in order to promote more activity and interaction
 * Auto-upvote your own submissions
