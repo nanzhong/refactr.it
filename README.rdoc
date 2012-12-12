@@ -10,6 +10,7 @@ If anyone is interesting in contributing, please feel free to fork away and subm
 * Refactor the current scoring algorithm
 * User profile pages are sorely lacking, maybe some statistics on their recent activity?
 * Smart searching, while the site currently supports searching by content, language, tags, it's not really exposed to the user. Something can definitely be done to improve that.
+* There are no tests at the moment, and I should probably get around to writing some
 * Email support
   * Alerts when new solutions have been posted to your problem
   * Weekly digest emails
