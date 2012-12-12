@@ -7,7 +7,7 @@ class Problem
 
   LANGUAGES = [
     :c_cpp,      :clojure,    :coffee,     :csharp,     :dart,       :golang,
-    :groovy,     :java,       :javascript, :jsp,        :list,       :lua,
+    :groovy,     :java,       :javascript, :jsp,        :lisp,       :lua,
     :objectivec, :ocaml,      :perl,       :php,        :python,     :ruby,
     :scala,      :sh,         :sql,        :tcl,        :text,       :typescript
   ]
