@@ -5,7 +5,6 @@ ruby '1.9.3'
 gem 'rails', '3.2.8'
 gem 'mongoid', '~> 3.0.0'
 gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
-gem "twitter-bootstrap-rails"
 gem 'httparty'
 gem 'redcarpet'
 gem 'unicorn'
