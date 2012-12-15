@@ -2,20 +2,41 @@
 
 <div class="row">
   <div class="span3">
-    <%= image_tag @user.image, class: 'img-polaroid' %>
+    <div class="user-header">
+      <%= image_tag @user.image + '&s=420', class: 'img-polaroid user-avatar' %>
+      <div class="user-info">
+        <h1 class="users-title"><%= @user.name.blank? ? @user.nickname : @user.name %> <span class="muted">(<%= @user.score %>)</span></h1>
+        <h2 class="users-subtitle"><%= @user.nickname %></h2>
+        <p><strong>Joined</strong> <%= time_ago_in_words @user.created_at %> ago</p>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div>
+      <strong>Problems submitted:</strong> <%= @user.problems_count %><br>
+      <strong>Solutions submitted:</strong> <%= @user.solutions_count %>
+    </div>
   </div>
 
   <div class="span9">
-    <div class="user-name-info">
-      <h1 class="users-title"><%= @user.name.blank? ? @user.nickname : @user.name %> <span class="muted">(<%= @user.score %>)</span></h1>
-      <h2 class="users-subtitle"><%= @user.nickname %></h2>
-    </div>
-    <div>
-      <p><strong>Joined</strong> <%= time_ago_in_words @user.created_at %> ago</p>
-      <p>
-      <strong>Problems submitted:</strong> <%= @user.problems_count %><br>
-      <strong>Solutions submitted:</strong> <%= @user.solutions_count %>
-      </p>
+    <h1>Recent Activity</h1>
+    <div class="activity-list">
+      <% @activities.each do |activity| %>
+        <div class="activity-item">
+          <span class="muted"><%= time_ago_in_words activity.created_at %> ago</span>
+          <% case activity.class %>
+          <% when Problem %>
+            <i class="icon-question-sign activity-icon"></i>
+            <h5>Submitted a <%= link_to activity.formatted_language, problems_path(lang: activity.language) %> problem "<%= link_to activity.title, problem_path(activity) %>"</h5>
+          <% when Solution %>
+            <i class="icon-ok-sign activity-icon"></i>
+            <h5>Refactored the problem "<%= link_to activity.problem.title, problem_path(activity.problem) %>"</h5>
+          <% when Comment %>
+            <i class="icon-info-sign activity-icon"></i>
+            <h5>Commented on <%= activity.solution.nil? ? 'the problem' : 'a solution to the problem' %> "<%= link_to activity.solution.nil? ? activity.problem.title : activity.solution.problem.title, problem_path(activity.solution.nil? ? activity.problem.id : activity.solution.problem.id) %>"</h5>
+          <% end %>
+          <div class="clearfix"></div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

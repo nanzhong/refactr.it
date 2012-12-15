@@ -13,6 +13,29 @@
   margin: 5px 0 5px 0;
 }
 
-.user-name-info {
+.user-header {
   border-bottom: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.activity-list {
+  border-top: 1px solid #ddd;
+}
+
+.activity-item {
+  padding: 5px 0px 5px 0px;
+  border-bottom: 1px solid #ddd;
+}
+
+.activity-item h5 {
+  padding: 0;
+  margin: 0;
+}
+
+.activity-icon {
+  font-size: 40px;
+  margin-right: 10px;
+  float: left;
+  line-height: 45px;
+  color: #999;
 }
