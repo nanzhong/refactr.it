@@ -82,6 +82,19 @@ class Problem
     self.user.save unless self.user.nil?
   end
 
+  def formatted_language
+    case self.language
+    when :c_cpp
+      'c/c++'
+    when :csharp
+      'c#'
+    when :objectivec
+      'obj-c'
+    else
+      self.language.to_s
+    end
+  end
+
   private
   def cache_solutions_count
     self.solutions_count = self.solutions.count

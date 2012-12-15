@@ -80,7 +80,7 @@
 
       <div class="problem-language">
         <h5>Language</h5>
-        <%= link_to @problem.language, problems_path(q: "lang:#{@problem.language}") %>
+        <%= link_to @problem.formatted_language, problems_path(lang: @problem.language) %>
       </div>
 
       <ul class="tag-list-new-line">
