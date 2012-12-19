@@ -11,10 +11,14 @@
     editor.setShowPrintMargin(false);
     editor.setValue(textarea.val());
     editor.session.setMode("ace/mode/<%= problem.language %>");
+    if (textarea.val()) {
+      var height = editor.session.getDocument().getLength() * editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
+      $('#solution-body').height(height);
+    }
     editor.on('change', function(){
       textarea.val(editor.session.getValue());
     });
-
+    editor.resize();
   </script>
 
   <% unless user_signed_in? %>
