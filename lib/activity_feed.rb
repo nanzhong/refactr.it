@@ -74,7 +74,7 @@ class ActivityFeed
 
       return true
     rescue Redis::CannotConnectError
-      logger.warn "Cache: Could not connect to redis"
+      Rails.logger.warn "Cache: Could not connect to redis"
       return false
     end
   end
@@ -85,7 +85,7 @@ class ActivityFeed
       activities = REDIS.lrange 'activity', 0, length
       return activities.map {|a| JSON.parse(a)}
     rescue Redis::CannotConnectError
-      logger.warn "Cache: Could not connect to redis"
+      Rails.logger.warn "Cache: Could not connect to redis"
       return nil
     end
   end
@@ -95,7 +95,7 @@ class ActivityFeed
       activities = REDIS.lrange 'activity', 0, num
       return activities.map {|a| JSON.parse(a)}
     rescue Redis::CannotConnectError
-      logger.warn "Cache: Could not connect to redis"
+      Rails.logger.warn "Cache: Could not connect to redis"
       return nil
     end
   end
@@ -105,13 +105,13 @@ class ActivityFeed
       begin
         REDIS.lpush 'activity', {event: event, data: data}.to_json
       rescue Redis::CannotConnectError
-        logger.warn "Cache: Could not connect to redis"
+        Rails.logger.warn "Cache: Could not connect to redis"
       end
 
       # TODO Enable live updating via pushes from pusher
       # Pusher.trigger(CHANNEL, event, data)
     rescue Pusher::Error => e
-      logger.error "ActivityFeed: Pusher Error, could not add an activity #{e.inspect}"
+      Rails.logger.error "ActivityFeed: Pusher Error, could not add an activity #{e.inspect}"
     end
   end
 

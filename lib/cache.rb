@@ -8,7 +8,7 @@ class Cache
       voted = REDIS.get(self.problem_vote_key(user_key, problem))
       voted.blank? ? false : voted
     rescue Redis::CannotConnectError
-      logger.warn "Cache: Could not connect to redis"
+      Rails.logger.warn "Cache: Could not connect to redis"
       false
     end
   end
@@ -17,7 +17,7 @@ class Cache
     begin
       REDIS.set(self.problem_vote_key(user_key, problem), vote)
     rescue Redis::CannotConnectError
-      logger.warn "Cache: Could not connect to redis"
+      Rails.logger.warn "Cache: Could not connect to redis"
     end
   end
 
@@ -26,7 +26,7 @@ class Cache
       voted = REDIS.get(self.solution_vote_key(user_key, solution))
       voted.blank? ? false : voted
     rescue Redis::CannotConnectError
-      logger.warn "Cache: Could not connect to redis"
+      Rails.logger.warn "Cache: Could not connect to redis"
       false
     end
   end
@@ -35,7 +35,7 @@ class Cache
     begin
       REDIS.set(self.solution_vote_key(user_key, solution), vote)
     rescue Redis::CannotConnectError
-      logger.warn "Cache: Could not connect to redis"
+      Rails.logger.warn "Cache: Could not connect to redis"
       false
     end
   end
