@@ -1,0 +1,19 @@
+<div class="activity-item">
+  <span class="muted"><%= activity['data']['timestamp'] %></span><br/>
+  <% unless activity['data']['user_id'].nil? %>
+    <h5><%= link_to activity['data']['user_name'], users_path(activity['data']['user_id']) %></h5>
+  <% else %>
+    <h5>Anonymous</h5>
+  <% end %>
+  <% case activity['event'] %>
+  <% when ActivityFeed::Event::PROBLEM_NEW %>
+    <h5>Submitted a <%= link_to activity['data']['problem_formatted_language'], problems_path(lang: activity['data']['problem_language']) %> problem "<%= link_to activity['data']['problem_title'], problem_path(activity['data']['problem_id']) %>"</h5>
+  <% when ActivityFeed::Event::PROBLEM_UPDATE %>
+    <h5>Updated the <%= link_to activity['data']['problem_formatted_language'], problems_path(lang: activity['data']['problem_language']) %> problem "<%= link_to activity['data']['problem_title'], problem_path(activity['data']['problem_id']) %>"</h5>
+  <% when ActivityFeed::Event::SOLUTION_NEW %>
+    <h5>Refactored the problem "<%= link_to activity['data']['problem_title'], problem_path(activity['data']['problem_id']) %>"</h5>
+  <% when ActivityFeed::Event::SOLUTION_UPDATE %>
+    <h5>Updated his refactoring for the problem "<%= link_to activity['data']['problem_title'], problem_path(activity['data']['problem_id']) %>"</h5>
+  <% end %>
+  <div class="clearfix"></div>
+</div>
