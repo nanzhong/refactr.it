@@ -12,6 +12,8 @@ gem 'tire'
 gem 'kaminari'
 gem 'newrelic_rpm'
 gem 'redis'
+gem 'pusher'
+gem 'json'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

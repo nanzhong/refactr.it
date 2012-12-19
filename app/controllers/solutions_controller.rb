@@ -13,6 +13,18 @@ class SolutionsController < ApplicationController
 
     respond_to do |format|
       if @solution.save
+        activity_data = {
+          'user_id' => @solution.user.nil? ? nil : @solution.user.id,
+          'user_name' => @solution.user.nil? ? nil : @solution.user.display_name,
+          'problem_id' => @solution.problem.id,
+          'problem_title' => @solution.problem.title,
+          'problem_language' => @solution.problem.language,
+          'problem_formatted_language' => @solution.problem.formatted_language,
+          'solution_id' => @solution.id,
+          'timestamp' => @solution.updated_at.to_formatted_s(:long_ordinal)
+        }
+        ActivityFeed.add(ActivityFeed::Event::SOLUTION_NEW, activity_data)
+
         format.json { render json: @solution, status: :created, location: @problem }
         format.html { redirect_to problem_path(@problem, anchor: "solution-#{@solution.id}") }
       else
@@ -41,6 +53,18 @@ class SolutionsController < ApplicationController
   def update
     respond_to do |format|
       if @solution.update_attributes(params[:solution])
+        activity_data = {
+          'user_id' => @solution.user.id,
+          'user_name' => @solution.user.display_name,
+          'problem_id' => @solution.problem.id,
+          'problem_title' => @solution.problem.title,
+          'problem_language' => @solution.problem.language,
+          'problem_formatted_language' => @solution.problem.formatted_language,
+          'solution_id' => @solution.id,
+          'timestamp' => @solution.updated_at.to_formatted_s(:long_ordinal)
+        }
+        ActivityFeed.add(ActivityFeed::Event::SOLUTION_UPDATE, activity_data)
+
         format.html { redirect_to @problem, notice: 'Solution was successfully updated.' }
         format.json { head :no_content }
       else

@@ -8,9 +8,9 @@
 </div>
 
 <div class="row">
-  <div class="span7">
+  <div class="span6">
     <div class="problems-box">
-      <h2>Newest Problems</h2>
+      <h2>Featured Problems</h2>
       <% @problems.each do |problem| %>
         <div id="<%= problem.id %>" class="grid-problem-content">
           <div class="grid-problem-stats pull-left">
@@ -39,8 +39,7 @@
         </div>
       <% end %>
     </div>
-  </div>
-  <div class="span5">
+
     <div class="users-box">
       <h2>Top Users</h2>
       <table class="table table-hover">
@@ -57,7 +56,7 @@
           <% @users.each_with_index do |user, i| %>
             <tr>
               <td><%= i + 1 %></td>
-              <td><%= link_to user.display_name, user_path(user) %></td>
+              <td><%= image_tag user.image, size: '24x24' %>&nbsp;<%= link_to user.display_name, user_path(user) %></td>
               <td><%= user.score %></td>
               <td><%= user.problems_count %></td>
               <td><%= user.solutions_count %></td>
@@ -66,8 +65,25 @@
         </tbody>
       </table>
     </div>
+
+  </div>
+  <div class="span6">
+    <div class="recent-activity">
+      <h2>Recent Activity</h2>
+      <%= render partial: 'activity', collection: @activities %>
+    </div>
   </div>
 </div>
+
+<script src="http://js.pusher.com/1.12/pusher.min.js"></script>
+<script type="text/javascript">
+  var pusher = new Pusher('<%= Pusher.key %>'); // Replace with your app key
+  var channel = pusher.subscribe('<%= ActivityFeed::CHANNEL %>');
+
+  channel.bind('<%= ActivityFeed::Event::PROBLEM_NEW %>', function(data) {
+      // TODO Enable handling pushes for activity feed changes to allow live updating
+  });
+</script>
 
 <!--
 <div class="row">

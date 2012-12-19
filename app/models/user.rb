@@ -44,7 +44,7 @@ class User
   end
 
   def display_name
-    self.nickname || self.email
+    self.name || self.nickname || self.email
   end
 
   private

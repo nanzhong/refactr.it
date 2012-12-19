@@ -104,6 +104,17 @@ class ProblemsController < ApplicationController
 
     respond_to do |format|
       if @problem.save
+        activity_data = {
+          'user_id' => @problem.user.nil? ? nil : @problem.user.id,
+          'user_name' => @problem.user.nil? ? nil : @problem.user.display_name,
+          'problem_id' => @problem.id,
+          'problem_title' => @problem.title,
+          'problem_language' => @problem.language,
+          'problem_formatted_language' => @problem.formatted_language,
+          'timestamp' => @problem.created_at.to_formatted_s(:long_ordinal)
+        }
+        ActivityFeed.add(ActivityFeed::Event::PROBLEM_NEW, activity_data)
+
         format.json { render json: @problem, status: :created, location: @problem }
         format.html { redirect_to @problem, notice: 'Problem was successfully posted' }
       else
@@ -130,6 +141,17 @@ class ProblemsController < ApplicationController
   def update
     respond_to do |format|
       if @problem.update_attributes(params[:problem])
+        activity_data = {
+          'user_id' => @problem.user.id,
+          'user_name' => @problem.user.display_name,
+          'problem_id' => @problem.id,
+          'problem_title' => @problem.title,
+          'problem_language' => @problem.language,
+          'problem_formatted_language' => @problem.formatted_language,
+          'timestamp' => @problem.updated_at.to_formatted_s(:long_ordinal)
+        }
+        ActivityFeed.add(ActivityFeed::Event::PROBLEM_UPDATE, activity_data)
+
         format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
         format.json { head :no_content }
       else

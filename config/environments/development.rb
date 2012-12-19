@@ -28,3 +28,7 @@ RefactrIt::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+Pusher.app_id = '33857'
+Pusher.key    = 'a64bae06c53084510134'
+Pusher.secret = 'a8c4130ff11287d84cef'
